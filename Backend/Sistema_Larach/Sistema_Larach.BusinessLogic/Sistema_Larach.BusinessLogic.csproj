@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\Sistema_Larach.DataAccess\Sistema_Larach.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

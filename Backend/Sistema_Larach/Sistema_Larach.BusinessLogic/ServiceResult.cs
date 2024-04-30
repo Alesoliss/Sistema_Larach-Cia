@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
 
-namespace Sistema_Calificaciones.BusinessLogic
+namespace Sistema_Larach.BusinessLogic
 {
     public class ServiceResult
     {

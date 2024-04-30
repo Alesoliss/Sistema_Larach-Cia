@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "Sistema_Larach.Common/1.0.0": {
+        "runtime": {
+          "Sistema_Larach.Common.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Sistema_Larach.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

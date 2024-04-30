@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Sistema_Calificaciones.DataAccess;
-using Sistema_Calificaciones.DataAccess.Repository;
+
 using Sistema_Calificaciones.BusinessLogic.Services;
 using System;
 using System.Collections.Generic;
