@@ -36,5 +36,9 @@ namespace Sistema_Larach.Common.Models
         public int? Comde_UsuarioModificacion { get; set; }
         public DateTime? Comde_FechaModificacion { get; set; }
         public bool? Comde_Estado { get; set; }
+        [NotMapped]
+        public string UsuarioCreacion { get; set; }
+        [NotMapped]
+        public string UsuarioModificacion { get; set; }
     }
 }

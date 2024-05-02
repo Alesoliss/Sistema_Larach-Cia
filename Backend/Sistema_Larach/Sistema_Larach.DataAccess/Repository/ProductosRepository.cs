@@ -10,12 +10,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Sistema_Larach.Entities;
-using InventarioSupermercado.DataAccess.Repository;
 using Sistema_Larach.DataAccess.Repository;
 using Sistema_Larach.DataAccess;
 
 
-namespace InventarioSupermercado.DataAccess.Repository
+namespace Sistema_Larach.DataAccess.Repository
 {
     public class ProductosRepository : IRepository<tbProductos>
     {
@@ -23,7 +22,7 @@ namespace InventarioSupermercado.DataAccess.Repository
         {
             string sql = ScriptDataBase.Productos_Delete;
 
-            using (var db = new SqlConnection(InventarioSupermercadoContext.ConnectionString))
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
             {
                 var parameter = new DynamicParameters();
                 parameter.Add("@Produ_Id", Produ_Id);
@@ -45,7 +44,7 @@ namespace InventarioSupermercado.DataAccess.Repository
 
             List<tbProductos> result = new List<tbProductos>();
 
-            using (var db = new SqlConnection(InventarioSupermercadoContext.ConnectionString))
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
             {
                 var parameters = new { Produ_Id };
                 result = db.Query<tbProductos>(sql, parameters, commandType: CommandType.StoredProcedure).ToList();
@@ -59,7 +58,7 @@ namespace InventarioSupermercado.DataAccess.Repository
 
             List<tbProductos> result = new List<tbProductos>();
 
-            using (var db = new SqlConnection(InventarioSupermercadoContext.ConnectionString))
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
             {
                 var parameters = new { Produ_Id };
                 result = db.Query<tbProductos>(sql, parameters, commandType: CommandType.StoredProcedure).ToList();
@@ -76,7 +75,7 @@ namespace InventarioSupermercado.DataAccess.Repository
         {
             string sql = ScriptDataBase.Productos_Insertar;
 
-            using (var db = new SqlConnection(InventarioSupermercadoContext.ConnectionString))
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
             {
                 var parameter = new DynamicParameters();
                 parameter.Add("@Produ_Descripcion", item.Produ_Descripcion);
@@ -101,41 +100,14 @@ namespace InventarioSupermercado.DataAccess.Repository
 
 
 
-        public IEnumerable<ProductosViewModel> List(int categId)
+        public IEnumerable<tbProductos> List()
         {
-            string sql = "[Supr].[SP_Productos_Lista]";
-
+            string sql = ScriptDataBase.Productos_Listadogenral;
             List<tbProductos> result = new List<tbProductos>();
-
-            using (var db = new SqlConnection(InventarioSupermercadoContext.ConnectionString))
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
             {
-                var parameters = new DynamicParameters();
-                parameters.Add("@Categ_Id", categId);
-
-                result = db.Query<tbProductos>(sql, parameters, commandType: CommandType.StoredProcedure).ToList();
-
-                return result.Select(u => new ProductosViewModel
-                {
-                    Produ_Id = u.Produ_Id,
-                    Produ_Descripcion = u.Produ_Descripcion,
-                    Produ_Existencia = u.Produ_Existencia,
-                    Unida_Id = u.Unida_Id,
-                    Produ_PrecioCompra = u.Produ_PrecioCompra,
-                    Produ_PrecioVenta = u.Produ_PrecioVenta,
-                    Impue_Id = u.Impue_Id,
-                    Categ_Id = u.Categ_Id,
-                    Prove_Id = u.Prove_Id,
-                    Sucur_Id = u.Sucur_Id,
-                    Produ_UsuarioCreacion = u.Produ_UsuarioCreacion,
-                    Produ_FechaCreacion = u.Produ_FechaCreacion,
-                    Produ_UsuarioModificacion = u.Produ_UsuarioModificacion,
-                    Produ_FechaModificacion = u.Produ_FechaModificacion,
-                    Produ_Estado = u.Produ_Estado,
-                    Produ_ImagenUrl = u.Produ_ImagenUrl,
-                    Unida_Descripcion = u.Unida_Descripcion,
-                    Prove_Marca = u.Prove_Marca,
-                    Impue_Descripcion = u.Impue_Descripcion
-                });
+                result = db.Query<tbProductos>(sql, commandType: System.Data.CommandType.Text).ToList();
+                return result;
             }
         }
 
@@ -151,7 +123,7 @@ namespace InventarioSupermercado.DataAccess.Repository
 
             List<tbProductos> result = new List<tbProductos>();
 
-            using (var db = new SqlConnection(InventarioSupermercadoContext.ConnectionString))
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@Produ_Id", prodid);
@@ -197,7 +169,7 @@ namespace InventarioSupermercado.DataAccess.Repository
 
             List<tbImpuestos> result = new List<tbImpuestos>();
 
-            using (var db = new SqlConnection(InventarioSupermercadoContext.ConnectionString))
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
             {
                 result = db.Query<tbImpuestos>(sql, commandType: CommandType.Text).ToList();
 
@@ -217,7 +189,7 @@ namespace InventarioSupermercado.DataAccess.Repository
 
             List<tbCategorias> result = new List<tbCategorias>();
 
-            using (var db = new SqlConnection(InventarioSupermercadoContext.ConnectionString))
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
             {
                 result = db.Query<tbCategorias>(sql, commandType: CommandType.Text).ToList();
 
@@ -237,7 +209,7 @@ namespace InventarioSupermercado.DataAccess.Repository
 
             List<tbProveedores> result = new List<tbProveedores>();
 
-            using (var db = new SqlConnection(InventarioSupermercadoContext.ConnectionString))
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
             {
                 result = db.Query<tbProveedores>(sql, commandType: CommandType.Text).ToList();
 
@@ -252,24 +224,24 @@ namespace InventarioSupermercado.DataAccess.Repository
 
 
 
-        public IEnumerable<tbUnidades> ListUnidades()
-        {
-            string sql = ScriptDataBase.Proveedores_ddl;
+        //public IEnumerable<tbUnidades> ListUnidades()
+        //{
+        //    string sql = ScriptDataBase.Proveedores_ddl;
 
-            List<tbUnidades> result = new List<tbUnidades>();
+        //    List<tbUnidades> result = new List<tbUnidades>();
 
-            using (var db = new SqlConnection(InventarioSupermercadoContext.ConnectionString))
-            {
-                result = db.Query<tbUnidades>(sql, commandType: CommandType.Text).ToList();
+        //    using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
+        //    {
+        //        result = db.Query<tbEstadosCiviles>(sql, commandType: CommandType.Text).ToList();
 
-                return result.Select(u => new tbUnidades
-                {
-                    Unida_Id = u.Unida_Id,
-                    Unida_Descripcion = u.Unida_Descripcion
+        //        return result.Select(u => new tbUnidades
+        //        {
+        //            Unida_Id = u.Unida_Id,
+        //            Unida_Descripcion = u.Unida_Descripcion
 
-                });
-            }
-        }
+        //        });
+        //    }
+        //}
 
 
 
@@ -279,7 +251,7 @@ namespace InventarioSupermercado.DataAccess.Repository
 
             List<tbProductos> result = new List<tbProductos>();
 
-            using (var db = new SqlConnection(InventarioSupermercadoContext.ConnectionString))
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
             {
                 result = db.Query<tbProductos>(sql, commandType: CommandType.Text).ToList();
 
@@ -304,7 +276,7 @@ namespace InventarioSupermercado.DataAccess.Repository
 
             List<tbCategorias> result = new List<tbCategorias>();
 
-            using (var db = new SqlConnection(InventarioSupermercadoContext.ConnectionString))
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
             {
                 result = db.Query<tbCategorias>(sql, commandType: CommandType.Text).ToList();
 
@@ -340,7 +312,7 @@ namespace InventarioSupermercado.DataAccess.Repository
         {
             string sql = "[Supr].[SP_Productos_Modificar]";
 
-            using (var db = new SqlConnection(InventarioSupermercadoContext.ConnectionString))
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
             {
                 var parameter = new DynamicParameters();
                 parameter.Add("@Produ_Id", item.Produ_Id);

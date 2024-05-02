@@ -31,6 +31,10 @@ namespace Sistema_Larach.Entities
         //detalle
         [NotMapped]
         public int Vende_Id { get; set; }
+        [NotMapped]
+        public string UsuarioCreacion { get; set; }
+        [NotMapped]
+        public string UsuarioModificacion { get; set; }
 
         public int Produ_Id { get; set; }
         public int Vende_Cantidad { get; set; }
@@ -86,10 +90,7 @@ namespace Sistema_Larach.Entities
         [NotMapped]
         public decimal Impue_Descripcion { get; set; }
 
-        [NotMapped]
-        public string UsuarioCreacion { get; set; }
-        [NotMapped]
-        public string UsuarioModificacion { get; set; }
+     
         [NotMapped]
         public string Categ_Descripcion { get; set; }
 

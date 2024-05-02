@@ -10,7 +10,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Sistema_Larach.Entities;
-using InventarioSupermercado.DataAccess.Repository;
 
 namespace Sistema_Larach.DataAccess.Repository
 {
@@ -60,6 +59,18 @@ namespace Sistema_Larach.DataAccess.Repository
             }
         }
 
+
+
+        public IEnumerable<tbClientes> List()
+        {
+            string sql = ScriptDataBase.ClientesListar;
+            List<tbClientes> result = new List<tbClientes>();
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
+            {
+                result = db.Query<tbClientes>(sql, commandType: System.Data.CommandType.Text).ToList();
+                return result;
+            }
+        }
 
 
         public IEnumerable<ClienteViewModel> ListMunicipios()

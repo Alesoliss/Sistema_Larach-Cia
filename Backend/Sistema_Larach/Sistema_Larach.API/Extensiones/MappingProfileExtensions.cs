@@ -12,10 +12,28 @@ namespace Sistema_Larach.API.Extensiones
     {
         public MappingProfileExtensions()
         {
+            CreateMap<CargosViewModel, tbCargos>().ReverseMap();
+            CreateMap<CategoriasViewModel, tbCategorias>().ReverseMap();
+            CreateMap<ClienteViewModel, tbClientes>().ReverseMap();
+            CreateMap<ComprasDetalleViewModel, tbComprasDetalle>().ReverseMap();
+            CreateMap<ComprasEncabezadoViewModel, tbComprasEncabezado>().ReverseMap();
             CreateMap<DepartamentosViewModel, tbDepartamentos>().ReverseMap();
-            //CreateMap<ComprasDetalleViewModel, tbComprasDetalle>().ReverseMap();
-            //CreateMap<UsuariosViewModel, tbUsuarios>().ReverseMap();
-
+            CreateMap<EmpleadosViewModel, tbEmpleados>().ReverseMap();
+            CreateMap<EstadosCivilesViewModel, tbEstadosCiviles>().ReverseMap();
+            CreateMap<GraficosViewModel, tbGraficos>().ReverseMap();
+            CreateMap<ImpuestosViewModel, tbImpuestos>().ReverseMap();
+            CreateMap<MetodosPagoViewModel, tbMetodospago>().ReverseMap();
+            CreateMap<MuncipiosViewModel, tbMunicipios>().ReverseMap();
+            CreateMap<PantallasPorRolesViewModel, tbPantallasPorRoles>().ReverseMap();
+            CreateMap<PantallaViewModel, tbPantallas>().ReverseMap();
+            CreateMap<ProductosViewModel, tbProductos>().ReverseMap();
+            CreateMap<ProveedoresViewModel, tbProveedores>().ReverseMap();
+            CreateMap<RolesViewModel, tbRoles>().ReverseMap();
+            CreateMap<SucursalesViewModel, tbSucursales>().ReverseMap();
+            CreateMap<UnidadesViewmodel, tbEstadosCiviles>().ReverseMap();
+            CreateMap<UsuariosViewModel, tbUsuarios>().ReverseMap();
+            CreateMap<VentasDetalleViewModel, tbVentasDetalle>().ReverseMap();
+            CreateMap<tbVentasEncabezado, tbVentasEncabezado>().ReverseMap();
 
         }
     }

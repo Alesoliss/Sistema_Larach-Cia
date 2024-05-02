@@ -34,9 +34,6 @@
             "projectReferences": {
               "C:\\Users\\aleso\\OneDrive\\Escritorio\\Sistema_Larach-Cia\\Backend\\Sistema_Larach\\Sistema_Larach.BusinessLogic\\Sistema_Larach.BusinessLogic.csproj": {
                 "projectPath": "C:\\Users\\aleso\\OneDrive\\Escritorio\\Sistema_Larach-Cia\\Backend\\Sistema_Larach\\Sistema_Larach.BusinessLogic\\Sistema_Larach.BusinessLogic.csproj"
-              },
-              "C:\\Users\\aleso\\OneDrive\\Escritorio\\Sistema_Larach-Cia\\Backend\\Sistema_Larach\\Sistema_Larach.Common\\Sistema_Larach.Common.csproj": {
-                "projectPath": "C:\\Users\\aleso\\OneDrive\\Escritorio\\Sistema_Larach-Cia\\Backend\\Sistema_Larach\\Sistema_Larach.Common\\Sistema_Larach.Common.csproj"
               }
             }
           }
@@ -59,6 +56,16 @@
               "target": "Package",
               "version": "[11.0.0, )"
             },
+            "MailKit": {
+              "target": "Package",
+              "version": "[3.6.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[5.0.0, )"
@@ -67,9 +74,25 @@
               "target": "Package",
               "version": "[5.0.2, )"
             },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
+            },
+            "Swashbuckle.AspNetCore.Swagger": {
+              "target": "Package",
+              "version": "[6.2.3, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerGen": {
+              "target": "Package",
+              "version": "[6.2.3, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerUI": {
+              "target": "Package",
+              "version": "[6.2.3, )"
             }
           },
           "imports": [
@@ -183,7 +206,11 @@
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\aleso\\OneDrive\\Escritorio\\Sistema_Larach-Cia\\Backend\\Sistema_Larach\\Sistema_Larach.Entities\\Sistema_Larach.Entities.csproj": {
+                "projectPath": "C:\\Users\\aleso\\OneDrive\\Escritorio\\Sistema_Larach-Cia\\Backend\\Sistema_Larach\\Sistema_Larach.Entities\\Sistema_Larach.Entities.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

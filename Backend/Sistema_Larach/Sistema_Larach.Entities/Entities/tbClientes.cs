@@ -30,6 +30,10 @@ namespace Sistema_Larach.Entities
         public string Munic_Descripcion { get; set; }
         [NotMapped]
         public string Estad_Descripcion { get; set; }
+        [NotMapped]
+        public string UsuarioCreacion { get; set; }
+        [NotMapped]
+        public string UsuarioModificacion { get; set; }
         public virtual tbUsuarios Clien_UsuarioCreacionNavigation { get; set; }
     }
 }

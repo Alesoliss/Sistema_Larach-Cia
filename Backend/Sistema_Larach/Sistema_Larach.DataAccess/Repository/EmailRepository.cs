@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InventarioSupermercado.DataAccess.Repository
+namespace Sistema_Larach.DataAccess.Repository
 {
     class EmailRepository
     {

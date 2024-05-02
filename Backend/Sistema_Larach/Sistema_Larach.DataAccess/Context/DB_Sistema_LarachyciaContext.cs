@@ -35,7 +35,7 @@ namespace Sistema_Larach.Entities
         public virtual DbSet<tbProveedores> tbProveedores { get; set; }
         public virtual DbSet<tbRoles> tbRoles { get; set; }
         public virtual DbSet<tbSucursales> tbSucursales { get; set; }
-        public virtual DbSet<tbUnidades> tbUnidades { get; set; }
+        public virtual DbSet<tbEstadosCiviles> tbUnidades { get; set; }
         public virtual DbSet<tbUsuarios> tbUsuarios { get; set; }
         public virtual DbSet<tbVentasDetalle> tbVentasDetalle { get; set; }
         public virtual DbSet<tbVentasEncabezado> tbVentasEncabezado { get; set; }
@@ -530,10 +530,10 @@ namespace Sistema_Larach.Entities
                     .HasForeignKey(d => d.Sucur_Id)
                     .OnDelete(DeleteBehavior.ClientSetNull);
 
-                entity.HasOne(d => d.Unida)
-                    .WithMany(p => p.tbProductos)
-                    .HasForeignKey(d => d.Unida_Id)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
+                //entity.HasOne(d => d.Unida)
+                //    .WithMany(p => p.tbProductos)
+                //    .HasForeignKey(d => d.Unida_Id)
+                //    .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             modelBuilder.Entity<tbProveedores>(entity =>
@@ -692,14 +692,14 @@ namespace Sistema_Larach.Entities
 
                 entity.Property(e => e.Unida_FechaModificacion).HasColumnType("datetime");
 
-                entity.HasOne(d => d.Unida_UsuarioCreacionNavigation)
-                    .WithMany(p => p.tbUnidadesUnida_UsuarioCreacionNavigation)
-                    .HasForeignKey(d => d.Unida_UsuarioCreacion)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
+                //entity.HasOne(d => d.Unida_UsuarioCreacionNavigation)
+                //    .WithMany(p => p.tbUnidadesUnida_UsuarioCreacionNavigation)
+                //    .HasForeignKey(d => d.Unida_UsuarioCreacion)
+                //    .OnDelete(DeleteBehavior.ClientSetNull);
 
-                entity.HasOne(d => d.Unida_UsuarioModificacionNavigation)
-                    .WithMany(p => p.tbUnidadesUnida_UsuarioModificacionNavigation)
-                    .HasForeignKey(d => d.Unida_UsuarioModificacion);
+                //entity.HasOne(d => d.Unida_UsuarioModificacionNavigation)
+                //    .WithMany(p => p.tbUnidadesUnida_UsuarioModificacionNavigation)
+                //    .HasForeignKey(d => d.Unida_UsuarioModificacion);
             });
 
             modelBuilder.Entity<tbUsuarios>(entity =>
@@ -794,14 +794,14 @@ namespace Sistema_Larach.Entities
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.Clien)
-                    .WithMany(p => p.tbVentasEncabezado)
-                    .HasForeignKey(d => d.Clien_Id)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
+                //entity.HasOne(d => d.Clien)
+                //    .WithMany(p => p.tbVentasEncabezado)
+                //    .HasForeignKey(d => d.Clien_Id)
+                //    .OnDelete(DeleteBehavior.ClientSetNull);
 
-                entity.HasOne(d => d.MtPag)
-                    .WithMany(p => p.tbVentasEncabezado)
-                    .HasForeignKey(d => d.MtPag_Id);
+                //entity.HasOne(d => d.MtPag)
+                //    .WithMany(p => p.tbVentasEncabezado)
+                //    .HasForeignKey(d => d.MtPag_Id);
 
                 entity.HasOne(d => d.Sucur)
                     .WithMany(p => p.tbVentasEncabezado)

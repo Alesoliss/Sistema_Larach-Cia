@@ -1,5 +1,4 @@
-﻿using InventarioSupermercado.DataAccess.Repository;
-using Sistema_Larach.Common.Models;
+﻿using Sistema_Larach.Common.Models;
 using Sistema_Larach.DataAccess.Repository;
 using Sistema_Larach.Entities;
 using System;
@@ -14,31 +13,35 @@ namespace Sistema_Larach.BusinessLogic.Services
     {
         private readonly UsuariosRepository _usuariosRepository;
         private readonly ClientesRepository _clientesRepository;
+        private readonly RolesRepository _rolesRepository;
 
 
 
-        public AccesoService(UsuariosRepository usuariosRepository, ClientesRepository clientesRepository)
+
+        public AccesoService(UsuariosRepository usuariosRepository, ClientesRepository
+            clientesRepository, RolesRepository rolesRepository)
         {
             _usuariosRepository = usuariosRepository;
             _clientesRepository = clientesRepository;
+            _rolesRepository = rolesRepository;
 
         }
 
         #region Usuarios
-        public IEnumerable<UsuariosViewModel> ListUsuarios()
+        public ServiceResult Listadousuarios()
         {
+            var result = new ServiceResult();
             try
             {
-                var usuarios = _usuariosRepository.List();
-                return usuarios;
+                var list = _usuariosRepository.List();
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"errorrr: {ex.Message}");
-               
-                throw; 
+                return result.Error(ex.Message);
             }
         }
+
 
 
         public IEnumerable<UsuariosViewModel> ListRol()
@@ -246,6 +249,25 @@ namespace Sistema_Larach.BusinessLogic.Services
                 return result.Error(ex.Message);
             }
         }
+        #endregion
+
+
+
+        #region roles
+        public ServiceResult ListadoRoles()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _rolesRepository.List();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
         #endregion
 
     }

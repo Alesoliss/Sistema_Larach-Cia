@@ -1,13 +1,13 @@
-﻿using AHM.Total.Travel.BusinessLogic;
-using InventarioSupermercado.DataAccess.Repository;
-using InventarioSupermercado.Entities.Entities;
+﻿using Sistema_Larach.DataAccess.Repository;
+using Sistema_Larach.BusinessLogic;
+using Sistema_Larach.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InventarioSupermercado.BusinessLogic.Services
+namespace Sistema_Larach.BusinessLogic.Services
 {
     public class CompraService
     {

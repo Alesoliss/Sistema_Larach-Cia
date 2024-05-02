@@ -1,23 +1,47 @@
-/**
- * @license
- * Copyright Akveo. All Rights Reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
- */
 import { Component, OnInit } from '@angular/core';
-import { AnalyticsService } from './@core/utils/analytics.service';
-import { SeoService } from './@core/utils/seo.service';
+import { PrimeNGConfig } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'ngx-app',
-  template: '<router-outlet></router-outlet>',
+    selector: 'app-root',
+    templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit {
 
-  constructor(private analytics: AnalyticsService, private seoService: SeoService) {
-  }
+export class AppComponent {
+    constructor(private router:Router){}
+        ListarDepartamento (){
+            this.router.navigate(['departamentos']);
+        }
+        ListarEmpleados (){
+            this.router.navigate(['cargos']);
+        }
+        ListarEstadosCiviles (){
+            this.router.navigate(['EstadoCivil']);
+        }
+        ListarMunicipios (){
+            this.router.navigate(['municipio']);
+        }
+        ListarCombosPersonales (){
+            this.router.navigate(['rol']);
+        }
+        ListarComplementos (){
+            this.router.navigate(['usuario']);
+        }
+        ListarPostres (){
+            this.router.navigate(['unidad']);
+        }
+        ListarPromociones (){
+            this.router.navigate(['Impuesto']);
+        }
+        ListarPromocionesComidas (){
+            this.router.navigate(['metodoPago']);
+        }
+        ListarPromocionesSucursales (){
+            this.router.navigate(['categoria']);
+        }
 
-  ngOnInit(): void {
-    this.analytics.trackPageViews();
-    this.seoService.trackCanonicalChanges();
-  }
-}
+        Inicio (){
+            this.router.navigate(['Principal']);
+        }
+     
+    }

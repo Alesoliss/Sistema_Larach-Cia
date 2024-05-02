@@ -44,8 +44,8 @@ namespace Sistema_Larach.Entities
                 tbRolesRoles_UsuarioModificacionNavigation = new HashSet<tbRoles>();
                 tbSucursalesSucur_UsuarioCreacionNavigation = new HashSet<tbSucursales>();
                 tbSucursalesSucur_UsuarioModificacionNavigation = new HashSet<tbSucursales>();
-                tbUnidadesUnida_UsuarioCreacionNavigation = new HashSet<tbUnidades>();
-                tbUnidadesUnida_UsuarioModificacionNavigation = new HashSet<tbUnidades>();
+                tbUnidadesUnida_UsuarioCreacionNavigation = new HashSet<tbEstadosCiviles>();
+                tbUnidadesUnida_UsuarioModificacionNavigation = new HashSet<tbEstadosCiviles>();
                 tbVentasDetalleVende_UsuarioCreacionNavigation = new HashSet<tbVentasDetalle>();
                 tbVentasDetalleVende_UsuarioModificacionNavigation = new HashSet<tbVentasDetalle>();
                 tbVentasEncabezadoVenen_UsuarioCreacionNavigation = new HashSet<tbVentasEncabezado>();
@@ -118,8 +118,8 @@ namespace Sistema_Larach.Entities
             public virtual ICollection<tbRoles> tbRolesRoles_UsuarioModificacionNavigation { get; set; }
             public virtual ICollection<tbSucursales> tbSucursalesSucur_UsuarioCreacionNavigation { get; set; }
             public virtual ICollection<tbSucursales> tbSucursalesSucur_UsuarioModificacionNavigation { get; set; }
-            public virtual ICollection<tbUnidades> tbUnidadesUnida_UsuarioCreacionNavigation { get; set; }
-            public virtual ICollection<tbUnidades> tbUnidadesUnida_UsuarioModificacionNavigation { get; set; }
+            public virtual ICollection<tbEstadosCiviles> tbUnidadesUnida_UsuarioCreacionNavigation { get; set; }
+            public virtual ICollection<tbEstadosCiviles> tbUnidadesUnida_UsuarioModificacionNavigation { get; set; }
             public virtual ICollection<tbVentasDetalle> tbVentasDetalleVende_UsuarioCreacionNavigation { get; set; }
             public virtual ICollection<tbVentasDetalle> tbVentasDetalleVende_UsuarioModificacionNavigation { get; set; }
             public virtual ICollection<tbVentasEncabezado> tbVentasEncabezadoVenen_UsuarioCreacionNavigation { get; set; }

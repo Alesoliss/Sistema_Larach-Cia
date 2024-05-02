@@ -42,7 +42,10 @@ namespace Sistema_Larach.Common.Models
         public DateTime? Vende_FechaModificacion { get; set; }
         public bool? Vende_Estado { get; set; }
 
-
+        [NotMapped]
+        public string UsuarioCreacion { get; set; }
+        [NotMapped]
+        public string UsuarioModificacion { get; set; }
 
         //Productos
         [NotMapped]
@@ -83,10 +86,6 @@ namespace Sistema_Larach.Common.Models
         [NotMapped]
         public decimal Impue_Descripcion { get; set; }
 
-        [NotMapped]
-        public string UsuarioCreacion { get; set; }
-        [NotMapped]
-        public string UsuarioModificacion { get; set; }
         [NotMapped]
         public string Categ_Descripcion { get; set; }
 

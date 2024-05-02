@@ -41,6 +41,7 @@ namespace Sistema_Larach.Common.Models
         public string UsuarioModificacion { get; set; }
         [NotMapped]
         public string Categ_Descripcion { get; set; }
+   
 
         [NotMapped]
         public string Sucur_Descripcion { get; set; }

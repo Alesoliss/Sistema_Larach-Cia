@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InventarioSupermercado.Common.Models
+namespace Sistema_Larach.Common.Models
 {
   public  class MailData
     {

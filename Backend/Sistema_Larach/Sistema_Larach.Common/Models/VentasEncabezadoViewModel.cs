@@ -99,8 +99,6 @@ namespace Sistema_Larach.Common.Models
 
 
 
-
-
         public int Clien_Id { get; set; }
         [NotMapped]
         public string Clien_PrimerNombre { get; set; }

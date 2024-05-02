@@ -10,11 +10,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Sistema_Larach.Entities;
-using InventarioSupermercado.DataAccess.Repository;
 using Sistema_Larach.DataAccess.Repository;
 using Sistema_Larach.DataAccess;
 
-namespace InventarioSupermercado.DataAccess.Repository
+namespace Sistema_Larach.DataAccess.Repository
 {
     public class ComprasEncabezadoRepository : IRepository<tbComprasEncabezado>
     {

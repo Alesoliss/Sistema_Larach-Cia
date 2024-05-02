@@ -10,11 +10,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Sistema_Larach.Entities;
-using InventarioSupermercado.DataAccess.Repository;
 using Sistema_Larach.DataAccess.Repository;
 using Sistema_Larach.DataAccess;
 
-namespace InventarioSupermercado.DataAccess.Repository
+namespace Sistema_Larach.DataAccess.Repository
 {
     public class UsuariosRepository
     {
@@ -96,25 +95,15 @@ namespace InventarioSupermercado.DataAccess.Repository
         }
 
 
-        public IEnumerable<UsuariosViewModel> List()
+
+        public IEnumerable<tbUsuarios> List()
         {
             string sql = ScriptDataBase.Usuarios_Listar;
-
             List<tbUsuarios> result = new List<tbUsuarios>();
-
             using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
             {
-                result = db.Query<tbUsuarios>(sql, commandType: CommandType.Text).ToList();
-
-                return result.Select(u => new UsuariosViewModel
-                {
-                    Usuar_Id = u.Usuar_Id,
-                    Usuar_Usuario = u.Usuar_Usuario,
-                    empleado = u.empleado,    
-                    Roles_Descripcion = u.Roles_Descripcion,
-                    Perso_NombreCompleto = u.Perso_NombreCompleto
-
-                });
+                result = db.Query<tbUsuarios>(sql, commandType: System.Data.CommandType.Text).ToList();
+                return result;
             }
         }
 

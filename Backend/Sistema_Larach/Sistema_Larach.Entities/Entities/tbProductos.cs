@@ -65,7 +65,6 @@ namespace Sistema_Larach.Entities
         public bool? Vende_Estado { get; set; }
 
 
-
         [NotMapped]
         public string cliente { get; set; }
 
@@ -83,7 +82,7 @@ namespace Sistema_Larach.Entities
         public virtual tbUsuarios Produ_UsuarioModificacionNavigation { get; set; }
         public virtual tbProveedores Prove { get; set; }
         public virtual tbSucursales Sucur { get; set; }
-        public virtual tbUnidades Unida { get; set; }
+        public virtual tbEstadosCiviles Unida { get; set; }
         public virtual ICollection<tbComprasDetalle> tbComprasDetalle { get; set; }
         public virtual ICollection<tbVentasDetalle> tbVentasDetalle { get; set; }
     }

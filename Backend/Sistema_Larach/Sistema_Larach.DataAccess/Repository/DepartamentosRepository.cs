@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using Sistema_Larach.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,14 +23,41 @@ namespace Sistema_Larach.DataAccess.Repository
             throw new NotImplementedException();
         }
 
+        public IEnumerable<tbDepartamentos> FindDetalle(string id)
+        {
+            string sql = $"[Gnrl].[SP_Departamentos_Detalle] '{id}'";
+
+            List<tbDepartamentos> result = new List<tbDepartamentos>();
+
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
+            {
+                result = db.Query<tbDepartamentos>(sql, commandType: System.Data.CommandType.Text).ToList();
+                return result;
+            }
+        }
+
         public RequestStatus Insert(tbDepartamentos item)
         {
-            throw new NotImplementedException();
+            string sql = ScriptDataBase.deptoInsertar;
+
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
+            {
+                var parametro = new DynamicParameters();
+                parametro.Add("@Depar_Id", item.Depar_Id);
+                parametro.Add("@Depar_Descripcion", item.Depar_Descripcion);
+                parametro.Add("@Depar_UsuarioCreacion", item.Depar_UsuarioCreacion);
+                parametro.Add("@Depar_FechaCreacion", item.Depar_FechaCreacion);
+                var result = db.Execute(sql, parametro, commandType: CommandType.StoredProcedure);
+
+                return new RequestStatus { CodeStatus = result, MessageStatus = "" };
+
+
+            }
         }
 
         public IEnumerable<tbDepartamentos> List()
         {
-            const string sql = "select Depar_Id,Depar_Descripcion from [Gral].[tbDepartamentos]";
+            string sql = ScriptDataBase.deptoListar;
             List<tbDepartamentos> result = new List<tbDepartamentos>();
             using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
             {
@@ -40,7 +68,55 @@ namespace Sistema_Larach.DataAccess.Repository
 
         public RequestStatus Update(tbDepartamentos item)
         {
-            throw new NotImplementedException();
+            string sql = ScriptDataBase.deptoActualizar;
+
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
+            {
+                var parametro = new DynamicParameters();
+                parametro.Add("@Depar_Id", item.Depar_Id);
+                parametro.Add("@Depar_Descripcion", item.Depar_Descripcion);
+                parametro.Add("@Depa_UsuarioModificacion", item.Depar_UsuarioModificacion);
+                parametro.Add("@Depa_FechaModificacion", item.Depar_FechaModificacion);
+                var result = db.Execute(sql, parametro, commandType: CommandType.StoredProcedure);
+
+                return new RequestStatus { CodeStatus = result, MessageStatus = "" };
+            }
+            //throw new NotImplementedException();
+        }
+        public IEnumerable<tbDepartamentos> ObtenerDeptos()
+        {
+            var sql = ScriptDataBase.deptoListar;
+            List<tbDepartamentos> result = new List<tbDepartamentos>();
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
+            {
+                result = db.Query<tbDepartamentos>(sql, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
+        public IEnumerable<tbDepartamentos> FindDepto(string codigo)
+        {
+            string sql = $"[Gral].[sp_Departamentos_Buscar] '{codigo}'";
+            List<tbDepartamentos> result = new List<tbDepartamentos>();
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
+            {
+                result = db.Query<tbDepartamentos>(sql, commandType: System.Data.CommandType.Text).ToList();
+                return result;
+            }
+
+        }
+        public RequestStatus EliminarDepartamento(string id)
+        {
+            string sql = ScriptDataBase.deptoeliminar;
+
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
+            {
+                var parametro = new DynamicParameters();
+                parametro.Add("Depar_Id", id);
+                var result = db.Execute(sql, parametro, commandType: CommandType.StoredProcedure);
+
+                return new RequestStatus { CodeStatus = result, MessageStatus = "" };
+
+            }
         }
     }
 }

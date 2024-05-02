@@ -1040,11 +1040,20 @@
           "System.Xml.XmlDocument": "4.3.0"
         }
       },
+      "Sistema_Larach.Common/1.0.0": {
+        "dependencies": {
+          "Sistema_Larach.Entities": "1.0.0"
+        },
+        "runtime": {
+          "Sistema_Larach.Common.dll": {}
+        }
+      },
       "Sistema_Larach.DataAccess/1.0.0": {
         "dependencies": {
           "Dapper": "2.0.90",
           "Microsoft.EntityFrameworkCore": "5.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.0",
+          "Sistema_Larach.Common": "1.0.0",
           "Sistema_Larach.Entities": "1.0.0"
         },
         "runtime": {
@@ -1731,6 +1740,11 @@
       "sha512": "sha512-MYoTCP7EZ98RrANESW05J5ZwskKDoN0AuZ06ZflnowE50LTpbR5yRg3tHckTVm5j/m47stuGgCrCHWePyHS70Q==",
       "path": "system.xml.xmlserializer/4.3.0",
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    },
+    "Sistema_Larach.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Sistema_Larach.DataAccess/1.0.0": {
       "type": "project",

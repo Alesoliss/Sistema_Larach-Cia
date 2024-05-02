@@ -1,4 +1,4 @@
-﻿namespace InventarioSupermercado.DataAccess.Repository
+﻿namespace Sistema_Larach.DataAccess.Repository
 {
     public class tbGraficos
     {

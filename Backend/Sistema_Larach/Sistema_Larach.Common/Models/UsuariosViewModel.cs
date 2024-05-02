@@ -63,6 +63,7 @@ namespace Sistema_Larach.Common.Models
         [Display(Name = "Nombre Completo")]
 
         public string Perso_NombreCompleto { get; set; }
+
         public int Perso_Id { get; set; }
         public bool Usuar_Tipo { get; set; }
     }

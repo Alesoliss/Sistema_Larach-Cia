@@ -1,0 +1,14 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ToolbarModule } from 'primeng/toolbar';
+
+import { CargosListadoComponent } from './listCargo.component';
+
+@NgModule({
+    declarations: [CargosListadoComponent],
+    imports: [
+        CommonModule,
+        ToolbarModule
+    ]
+})
+export class CargosListadoModule { }

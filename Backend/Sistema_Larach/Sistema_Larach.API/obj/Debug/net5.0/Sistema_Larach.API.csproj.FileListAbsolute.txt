@@ -144,3 +144,13 @@ C:\Users\aleso\OneDrive\Escritorio\Sistema_Larach-Cia\Backend\Sistema_Larach\Sis
 C:\Users\aleso\OneDrive\Escritorio\Sistema_Larach-Cia\Backend\Sistema_Larach\Sistema_Larach.API\obj\Debug\net5.0\ref\Sistema_Larach.API.dll
 C:\Users\aleso\OneDrive\Escritorio\Sistema_Larach-Cia\Backend\Sistema_Larach\Sistema_Larach.API\obj\Debug\net5.0\Sistema_Larach.API.pdb
 C:\Users\aleso\OneDrive\Escritorio\Sistema_Larach-Cia\Backend\Sistema_Larach\Sistema_Larach.API\obj\Debug\net5.0\Sistema_Larach.API.genruntimeconfig.cache
+C:\Users\aleso\OneDrive\Escritorio\Sistema_Larach-Cia\Backend\Sistema_Larach\Sistema_Larach.API\obj\Debug\net5.0\Sistema_Larach.API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\aleso\OneDrive\Escritorio\Sistema_Larach-Cia\Backend\Sistema_Larach\Sistema_Larach.API\bin\Debug\net5.0\MailKit.dll
+C:\Users\aleso\OneDrive\Escritorio\Sistema_Larach-Cia\Backend\Sistema_Larach\Sistema_Larach.API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\aleso\OneDrive\Escritorio\Sistema_Larach-Cia\Backend\Sistema_Larach\Sistema_Larach.API\bin\Debug\net5.0\MimeKit.dll
+C:\Users\aleso\OneDrive\Escritorio\Sistema_Larach-Cia\Backend\Sistema_Larach\Sistema_Larach.API\bin\Debug\net5.0\BouncyCastle.Crypto.dll
+C:\Users\aleso\OneDrive\Escritorio\Sistema_Larach-Cia\Backend\Sistema_Larach\Sistema_Larach.API\bin\Debug\net5.0\System.Formats.Asn1.dll
+C:\Users\aleso\OneDrive\Escritorio\Sistema_Larach-Cia\Backend\Sistema_Larach\Sistema_Larach.API\bin\Debug\net5.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\aleso\OneDrive\Escritorio\Sistema_Larach-Cia\Backend\Sistema_Larach\Sistema_Larach.API\bin\Debug\net5.0\System.Text.Encoding.CodePages.dll
+C:\Users\aleso\OneDrive\Escritorio\Sistema_Larach-Cia\Backend\Sistema_Larach\Sistema_Larach.API\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\System.Security.Cryptography.Pkcs.dll
+C:\Users\aleso\OneDrive\Escritorio\Sistema_Larach-Cia\Backend\Sistema_Larach\Sistema_Larach.API\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\System.Text.Encoding.CodePages.dll

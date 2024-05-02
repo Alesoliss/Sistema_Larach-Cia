@@ -93,7 +93,11 @@
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\aleso\\OneDrive\\Escritorio\\Sistema_Larach-Cia\\Backend\\Sistema_Larach\\Sistema_Larach.Entities\\Sistema_Larach.Entities.csproj": {
+                "projectPath": "C:\\Users\\aleso\\OneDrive\\Escritorio\\Sistema_Larach-Cia\\Backend\\Sistema_Larach\\Sistema_Larach.Entities\\Sistema_Larach.Entities.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

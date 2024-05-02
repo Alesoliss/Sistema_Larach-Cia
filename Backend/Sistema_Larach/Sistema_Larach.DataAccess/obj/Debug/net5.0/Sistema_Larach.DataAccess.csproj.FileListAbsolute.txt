@@ -13,3 +13,5 @@ C:\Users\aleso\OneDrive\Escritorio\Sistema_Larach-Cia\Backend\Sistema_Larach\Sis
 C:\Users\aleso\OneDrive\Escritorio\Sistema_Larach-Cia\Backend\Sistema_Larach\Sistema_Larach.DataAccess\obj\Debug\net5.0\Sistema_Larach.DataAccess.dll
 C:\Users\aleso\OneDrive\Escritorio\Sistema_Larach-Cia\Backend\Sistema_Larach\Sistema_Larach.DataAccess\obj\Debug\net5.0\ref\Sistema_Larach.DataAccess.dll
 C:\Users\aleso\OneDrive\Escritorio\Sistema_Larach-Cia\Backend\Sistema_Larach\Sistema_Larach.DataAccess\obj\Debug\net5.0\Sistema_Larach.DataAccess.pdb
+C:\Users\aleso\OneDrive\Escritorio\Sistema_Larach-Cia\Backend\Sistema_Larach\Sistema_Larach.DataAccess\bin\Debug\net5.0\Sistema_Larach.Common.dll
+C:\Users\aleso\OneDrive\Escritorio\Sistema_Larach-Cia\Backend\Sistema_Larach\Sistema_Larach.DataAccess\bin\Debug\net5.0\Sistema_Larach.Common.pdb

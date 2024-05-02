@@ -1,49 +1,59 @@
-﻿using AHM.Total.Travel.BusinessLogic;
-using InventarioSupermercado.Common.Models;
-using InventarioSupermercado.DataAccess.Repository;
-using InventarioSupermercado.Entities.Entities;
+﻿
+using Sistema_Larach.BusinessLogic;
+using Sistema_Larach.Common.Models;
+using Sistema_Larach.DataAccess.Repository;
+using Sistema_Larach.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InventarioSupermercado.BusinessLogic.Services
+namespace Sistema_Larach.BusinessLogic.Services
 {
     public class SupermercadoService
     {
         private readonly ProductosRepository _productosRepository;
         private readonly VentasEncabezadoRepository _ventasEncabezado;
         private readonly VentasDetalleRepository _ventasDetalleRepository;
-
+        private readonly EmpleadosRepository _empleadosRepository;
+        private readonly ClientesRepository _clientesRepository;
 
 
 
 
         public SupermercadoService(ProductosRepository productosRepository,
-            VentasEncabezadoRepository ventasEncabezado, VentasDetalleRepository ventasDetalleRepository)
+            EmpleadosRepository empleadosRepository,
+            VentasEncabezadoRepository ventasEncabezado,
+            ClientesRepository clientesRepository,
+
+            VentasDetalleRepository ventasDetalleRepository
+            )
         {
             _productosRepository = productosRepository;
             _ventasEncabezado = ventasEncabezado;
             _ventasDetalleRepository = ventasDetalleRepository;
+            _empleadosRepository = empleadosRepository;
+            _clientesRepository = clientesRepository;
+
 
         }
 
         #region productos
 
-        public IEnumerable<ProductosViewModel> ListProductos(int categId)
-        {
-            try
-            {
-                var productos = _productosRepository.List(categId);
-                return productos;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-                throw;
-            }
-        }
+        //public IEnumerable<ProductosViewModel> ListProductos(int categId)
+        //{
+        //    try
+        //    {
+        //        var productos = _productosRepository.List(categId);
+        //        return productos;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Error: {ex.Message}");
+        //        throw;
+        //    }
+        //}
 
 
         public IEnumerable<ProductosViewModel> ListProcuctosCarrito(int prodid, int vendetId)
@@ -61,6 +71,21 @@ namespace InventarioSupermercado.BusinessLogic.Services
         }
 
 
+
+
+        public ServiceResult ListadoProductos()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _productosRepository.List();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
 
 
         public ServiceResult InsertProductos(tbProductos item)
@@ -194,20 +219,20 @@ namespace InventarioSupermercado.BusinessLogic.Services
         }
 
 
-        public IEnumerable<tbUnidades> ListUnidades()
-        {
-            try
-            {
-                var usuarios = _productosRepository.ListUnidades();
-                return usuarios;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"errorrr: {ex.Message}");
+        //public IEnumerable<tbEstadosCiviles> ListUnidades()
+        //{
+        //    try
+        //    {
+        //        var usuarios = _productosRepository.ListUnidades();
+        //        return usuarios;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"errorrr: {ex.Message}");
 
-                throw;
-            }
-        }
+        //        throw;
+        //    }
+        //}
 
 
         public IEnumerable<CategoriasViewModel> ListadoCategoriaPrincipal()
@@ -539,13 +564,58 @@ namespace InventarioSupermercado.BusinessLogic.Services
 
 
 
-        public IEnumerable<tbMetodosPago> ListarMetodosPago()
-        {
-            return _ventasEncabezado.ListarMetodosPago();
-        }
+        //public IEnumerable<tbMetodosPago> ListarMetodosPago()
+        //{
+        //    return _ventasEncabezado.ListarMetodosPago();
+        //}
 
 
         #endregion
+
+
+
+
+
+        #region empleado
+        public ServiceResult ListadoEmpleados()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _empleadosRepository.List();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        #endregion
+
+
+
+
+
+
+        #region empleado
+        public ServiceResult ListadoClientes()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _clientesRepository.List();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        #endregion
+
+
+
+
     }
 }
 
