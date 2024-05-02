@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace  Sistema_Calificaciones.BusinessLogic
+namespace Sistema_Larach.BusinessLogic
 {
     public enum ServiceResultType
     {

@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\Sistema_Larach.Entities\Sistema_Larach.Entities.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Sistema_Larach.API.Extensiones;
+using Sistema_Larach.BusinessLogic.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,10 +29,28 @@ namespace Sistema_Larach.API
         public void ConfigureServices(IServiceCollection services)
         {
 
+
+            services.DataAccess(Configuration.GetConnectionString("Sistema_LarachCon"));
+            services.BusinessLogic();
+            services.AddAutoMapper(x => x.AddProfile<MappingProfileExtensions>(), AppDomain.CurrentDomain.GetAssemblies());
+            services.AddHttpContextAccessor();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Sistema_Larach.API", Version = "v1" });
+            });
+
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAnyOrigin",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyHeader()
+                               .AllowAnyMethod();
+                    });
             });
         }
 
@@ -49,7 +69,7 @@ namespace Sistema_Larach.API
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseCors("AllowAnyOrigin");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
