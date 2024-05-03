@@ -6,8 +6,8 @@
                 <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2" ></button>
             </div>
             
-            <p-table [value]="sucursal" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
-                [paginator]="true" [globalFilterFields]="['sucur_Id','sucur_Descripcion','sucur_Direccion','sucur_Telefono','munic_Id']" responsiveLayout="scroll">
+            <p-table [value]="Cliente" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
+                [paginator]="true" [globalFilterFields]="['clien_Id','clien_PrimerNombre','clien_PrimerApellido','clien_Telefono','clien_Direccion']" responsiveLayout="scroll">
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-between flex-column sm:flex-row">
                         <button pButton label="Limpiar Filtro" class="p-button-outlined mb-2" icon="pi pi-filter-slash"
@@ -24,48 +24,48 @@
                         <th style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
                                 Código
-                                <p-columnFilter type="text" field="sucur_Id" display="menu"
+                                <p-columnFilter type="text" field="clien_Id" display="menu"
                                     placeholder="Buscar por código"></p-columnFilter>
                             </div>
                         </th>
                         <th style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
-                                sucursal
-                                <p-columnFilter type="text" field="sucur_Descripcion" display="menu"
+                                Nombre
+                                <p-columnFilter type="text" field="clien_PrimerNombre" display="menu"
                                     placeholder="Buscar por descripción"></p-columnFilter>
                             </div>
                         </th>
                         <th style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
-                                 Direccion
-                                <p-columnFilter type="text" field="sucur_Direccion" display="menu"
+                                 Apellido
+                                <p-columnFilter type="text" field="clien_PrimerApellido" display="menu"
                                     placeholder="Buscar por descripción"></p-columnFilter>
                             </div>
                         </th>
                         <th style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
                                 Telefono
-                                <p-columnFilter type="text" field="sucur_Telefono" display="menu"
+                                <p-columnFilter type="text" field="clien_Telefono" display="menu"
                                     placeholder="Buscar por descripción"></p-columnFilter>
                             </div>
                         </th>
                         <th style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
-                                Municipio
-                                <p-columnFilter type="text" field="munic_Id" display="menu"
+                                Dirreccion
+                                <p-columnFilter type="text" field="clien_Direccion" display="menu"
                                     placeholder="Buscar por descripción"></p-columnFilter>
                             </div>
                         </th>
                         <th style="min-width: 12rem">Acciones</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-sucursal>
+                <ng-template pTemplate="body" let-Cliente>
                     <tr>
-                        <td>{{sucursal.sucur_Id}}</td>
-                        <td>{{sucursal.sucur_Descripcion}}</td>
-                        <td>{{sucursal.sucur_Direccion}}</td>
-                        <td>{{sucursal.sucur_Telefono}}</td>
-                        <td>{{sucursal.munic_Idng}}</td>
+                        <td>{{Cliente.clien_Id}}</td>
+                        <td>{{Cliente.clien_PrimerNombre}}</td>
+                        <td>{{Cliente.clien_PrimerApellido}}</td>
+                        <td>{{Cliente.clien_Telefono}}</td>
+                        <td>{{Cliente.clien_Direccion}}</td>
                         <td>
                             <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
                             >Editar</button>

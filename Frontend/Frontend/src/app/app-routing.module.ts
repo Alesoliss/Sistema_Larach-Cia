@@ -16,6 +16,7 @@ import { RolesListadoComponent } from './demo/components/Roles/listRol.component
 import { EmpleadoListadoComponent } from './demo/components/Empleados/listEmpleados.component';
 import { ProductoListadoComponent } from './demo/components/Productos/listProductos.component';
 import { SucursalesListadoComponent } from './demo/components/Sucursales/listSucursales.component';
+import { ClientesListadoComponent } from './demo/components/Cliente/listCliente.component';
 import { ListDemoComponent } from './demo/components/uikit/list/listdemo.component';
 
 
@@ -49,6 +50,7 @@ import { ListDemoComponent } from './demo/components/uikit/list/listdemo.compone
                     { path: 'Empleado', component: EmpleadoListadoComponent },
                     { path: 'Productos', component: ProductoListadoComponent },
                     { path: 'Sucursal', component: SucursalesListadoComponent },
+                    { path: 'Cliente', component: ClientesListadoComponent },
                 ]
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },
