@@ -43,5 +43,6 @@ export class AppComponent {
         Inicio (){
             this.router.navigate(['Principal']);
         }
+        
      
     }

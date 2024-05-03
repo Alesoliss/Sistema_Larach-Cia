@@ -3,7 +3,7 @@
         <div class="card">
             <h5>Roles</h5>
             <div class="flex justify-content-start mb-3">
-                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2" (click)="openModal()"></button>
+                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-info mr-2" (click)="openModal()"></button>
             </div>
             
             <p-table [value]="roles" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
@@ -42,12 +42,12 @@
                     <tr>
                         <td>{{rol.roles_Id}}</td>
                         <td>{{rol.roles_Descripcion}}</td>
-                        <td>
-                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                        <td style="align-items: center; text-align: center;">
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info mr-2"
                                 (click)="editRol(rol)">Editar</button>
-                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning mr-2"
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2"
                                 (click)="deleteRol(rol)">Eliminar</button>
-                            <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-info"
+                                <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-warning"
                                 (click)="showDetails(rol)">Detalles</button>
                         </td>
                     </tr>

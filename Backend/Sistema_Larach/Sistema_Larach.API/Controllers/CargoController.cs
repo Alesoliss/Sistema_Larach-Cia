@@ -24,6 +24,14 @@ namespace Sistema_Larach.API.Controllers
             _mapper = mapper;
         }
 
+
+
+
+
+
+
+
+
         [HttpGet("Listado")]
 
         public IActionResult Index()

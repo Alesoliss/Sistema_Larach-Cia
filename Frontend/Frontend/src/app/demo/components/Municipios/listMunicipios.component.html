@@ -3,7 +3,7 @@
         <div class="card">
             <h5>Municipios</h5>
             <div class="flex justify-content-start mb-3">
-                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2" (click)="openModal()"></button>
+                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-info mr-2" (click)="openModal('nuevo')"></button>
             </div>
             
             <p-table [value]="impuesto" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
@@ -43,12 +43,15 @@
                         <td>{{municipio.munic_Id}}</td>
                         <td>{{municipio.munic_Descripcion}}</td>
   
-                        <td>
-                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
-                                (click)="editMunicipio(municipio)">Editar</button>
-                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning mr-2"
-                                (click)="deleteMunicipio(municipio)">Eliminar</button>
-                            <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-info"
+                        <td style="align-items: center; text-align: center;">
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info mr-2"
+                                (click)="openModal('editar', municipio)">Editar</button> 
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2"
+    (click)="eliminarMunicipio(municipio.munic_Id)">Eliminar</button>
+
+                            
+
+                            <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-warning"
                                 (click)="showDetails(municipio)">Detalles</button>
                         </td>
                     </tr>
@@ -67,7 +70,41 @@
         </div>
     </div>
 </div>
-  
+
+
+
+<!-- Modal para nuevo municipio -->
+<p-dialog [(visible)]="showModal" header="Nuevo Municipio" [modal]="true" [style]="{ width: '50%' }">
+    <ng-template pTemplate="content">
+      
+        <form class="p-grid p-fluid">
+            <div class="p-col-6" style="display: flex;">
+                <div style="flex: 1;">
+                    <label for="new-municipio-id" class="p-d-block">ID Departamento</label>
+                    <input type="text" id="new-municipio-id" name="new-municipio-id" [(ngModel)]="impuestoSeleccionado.munic_Id" class="p-inputtext" style="width: 100%; padding: 0.5rem;" />
+                </div>
+                <div style="flex: 1; margin-left: 1rem;">
+                    <label for="new-municipio-descripcion" class="p-d-block">Descripción</label>
+                    <input type="text" id="new-municipio-descripcion" name="new-municipio-descripcion" [(ngModel)]="impuestoSeleccionado.munic_Descripcion" class="p-inputtext" style="width: 100%; padding: 0.5rem;" />
+                </div>
+            </div>
+            <div class="p-col-6">
+                <label for="new-municipio-dropdown" class="p-d-block">Seleccionar Departamento</label>
+                <select id="new-municipio-dropdown" [(ngModel)]="impuestoSeleccionado.depar_Id" name="new-municipio-dropdown" class="p-inputtext" style="width: 100%; padding: 0.5rem;">
+                    <option value="" selected disabled>---SELECCIONE---</option>
+                    <option *ngFor="let option of dropdownOptions" [ngValue]="option.value">{{ option.label }}</option>
+                </select>
+            </div>    
+        </form>      
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <!-- Botones del pie de página -->
+        <button pButton type="button" label="Cancelar" class="p-button-text" (click)="closeModal('nuevo')"></button>
+        <button pButton type="button" label="Guardar" class="p-button-success" (click)="guardarNuevoMunicipio()"></button>
+    </ng-template>
+</p-dialog>
+
+
 <!-- Modal para editar municipio -->
 <p-dialog [(visible)]="editModal" [modal]="true" [style]="{ width: '50%' }">
     <ng-template pTemplate="header">
@@ -75,31 +112,41 @@
     </ng-template>
     <ng-template pTemplate="content">
         <!-- Contenido del formulario de edición -->
-        <form>
-            <div class="p-field">
-                <label for="edit-municipio-id">ID Municipio</label>
-                <input type="text" id="edit-municipio-id" [(ngModel)]="impuestoSeleccionado.munic_Id" />
+        <form class="p-grid p-fluid">
+            <div class="p-col-6" style="display: flex;">
+                <div style="flex: 1;">
+                    <label for="new-municipio-departamento-id" class="p-d-block">ID Departamento</label>
+                    <input type="text" id="new-municipio-departamento-id" [(ngModel)]="impuestoSeleccionado.depar_Id" class="p-inputtext" style="width: 100%; padding: 0.5rem;" />
+                </div>
+                <div style="flex: 1; margin-left: 1rem;">
+                    <label for="new-municipio-descripcion" class="p-d-block">Descripción</label>
+                    <input type="text" id="new-municipio-descripcion" [(ngModel)]="impuestoSeleccionado.munic_Descripcion" class="p-inputtext" style="width: 100%; padding: 0.5rem;" />
+                </div>
             </div>
-            <div class="p-field">
-                <label for="edit-municipio-descripcion">Descripción</label>
-                <input type="text" id="edit-municipio-descripcion" [(ngModel)]="impuestoSeleccionado.munic_Descripcion" />
+            <div class="p-col-6">
+                <label for="new-municipio-dropdown" class="p-d-block">Seleccionar Opción</label>
+                <p-dropdown [options]="dropdownOptions" [(ngModel)]="selectedOption" optionLabel="label" placeholder="Seleccionar"></p-dropdown>
             </div>
-        </form>
+        </form> 
     </ng-template>
     <ng-template pTemplate="footer">
         <!-- Botones del pie de página -->
-        <button pButton type="button" label="Cancelar" (click)="editModal = false"></button>
+        <button pButton type="button" label="Cancelar" (click)="closeModal('editar')"></button>
         <button pButton type="button" label="Guardar" class="p-button-success" (click)="guardarCambios()"></button>
     </ng-template>
 </p-dialog>
   
 <!-- Modal para confirmar eliminación -->
-<p-dialog [(visible)]="deleteModal" header="Confirmar Eliminación" [modal]="true" [style]="{width: '50%'}">
+
+<p-dialog [(visible)]="showDeleteConfirmation" header="Confirmar Eliminación" [modal]="true" [style]="{width: '50%'}">
     <ng-template pTemplate="content">
         ¿Estás seguro que deseas eliminar este municipio?
     </ng-template>
     <ng-template pTemplate="footer">
-        <button pButton type="button" label="No" class="p-button-text" (click)="deleteModal = false"></button>
-        <button pButton type="button" label="Sí" class="p-button-text" (click)="eliminarMunicipio()"></button>
+        <button pButton type="button" label="No" class="p-button-text" (click)="cancelarEliminacion()"></button>
+        <button pButton type="button" label="Sí" class="p-button-text" (click)="confirmarEliminacion()"></button>
     </ng-template>
 </p-dialog>
+
+
+
