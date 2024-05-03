@@ -249,6 +249,62 @@ namespace Sistema_Larach.BusinessLogic.Services
                 return result.Error(ex.Message);
             }
         }
+
+        public ServiceResult ValidarReestablecer(string usuario)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _usuariosRepository.ValidarReestablecer(usuario);
+
+                return result.Ok(lost);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult MostrarCodigo(string codigo)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _usuariosRepository.SiExisteCodigo(codigo);
+
+                return result.Ok(lost);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ImplementarCodigo(string codigo, int id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _usuariosRepository.InsertarCodigo(codigo, id);
+
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    lost.MessageStatus = (lost.CodeStatus == 0) ? "401 Error de consulta" : lost.MessageStatus;
+                    return result.Error(lost);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
         #endregion
 
 

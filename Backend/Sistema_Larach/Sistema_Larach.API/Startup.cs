@@ -1,3 +1,4 @@
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -6,8 +7,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Sistema_Larach.API.Extensiones;
+using Sistema_Larach.API.Services;
 using Sistema_Larach.BusinessLogic.Services;
 using System;
 using System.Collections.Generic;
@@ -29,7 +32,7 @@ namespace Sistema_Larach.API
         public void ConfigureServices(IServiceCollection services)
         {
 
-
+            services.AddTransient<IMailService, MailService>();
             services.DataAccess(Configuration.GetConnectionString("Sistema_LarachCon"));
             services.BusinessLogic();
             services.AddAutoMapper(x => x.AddProfile<MappingProfileExtensions>(), AppDomain.CurrentDomain.GetAssemblies());
@@ -38,9 +41,27 @@ namespace Sistema_Larach.API
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Sistema_Larach.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Example Contact",
+                        Email = "example@example.com",
+                        Url = new Uri("https://example.com/contact"),
+                    },
+                });
+
             });
 
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+
+            services.AddHttpClient("MailTrapApiClient", (services, client) =>
+            {
+                var mailSettings = services.GetRequiredService<IOptions<MailSettings>>().Value;
+                client.BaseAddress = new Uri(mailSettings.ApiBaseUrl);
+                client.DefaultRequestHeaders.Add("Api-Token", mailSettings.ApiToken);
+            });
 
             services.AddCors(options =>
             {
@@ -65,7 +86,7 @@ namespace Sistema_Larach.API
             }
 
             app.UseHttpsRedirection();
-
+            app.UseStaticFiles();
             app.UseRouting();
 
             app.UseAuthorization();

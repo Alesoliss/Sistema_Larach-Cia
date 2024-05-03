@@ -66,5 +66,10 @@ namespace Sistema_Larach.Common.Models
 
         public int Perso_Id { get; set; }
         public bool Usuar_Tipo { get; set; }
+
+        [NotMapped]
+
+
+        public string Emple_Correo { get; set; }
     }
 }

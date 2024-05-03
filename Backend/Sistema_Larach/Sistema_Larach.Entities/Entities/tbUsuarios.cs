@@ -81,8 +81,11 @@ namespace Sistema_Larach.Entities
 
             public string Perso_NombreCompleto { get; set; }
 
+        [NotMapped]
 
-            public virtual tbEmpleados Emple { get; set; }
+
+        public string Emple_Correo { get; set; }
+        public virtual tbEmpleados Emple { get; set; }
             public virtual tbRoles Roles { get; set; }
             public virtual tbUsuarios Usuar_UsuarioCreacionNavigation { get; set; }
             public virtual tbUsuarios Usuar_UsuarioModificacionNavigation { get; set; }

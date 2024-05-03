@@ -200,9 +200,69 @@ namespace Sistema_Larach.DataAccess.Repository
             }
         }
 
+        public RequestStatus InsertarCodigo(string codigo, int id)
+        {
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
+            {
+                var parametro = new DynamicParameters();
+                parametro.Add("Usua_Codigo", codigo);
+                parametro.Add("Usua_Id", id);
 
 
+                var result = db.Execute(ScriptDataBase.Usuarios_Codigo,
+                    parametro,
+                     commandType: CommandType.StoredProcedure
+                    );
 
+                string mensaje = (result == 1) ? "Exito" : "Error";
+
+                return new RequestStatus { CodeStatus = result, MessageStatus = mensaje };
+            }
+        }
+
+        public IEnumerable<tbUsuarios> SiExisteCodigo(string codigo)
+        {
+
+
+            List<tbUsuarios> result = new List<tbUsuarios>();
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
+            {
+                var parameters = new { Usua_CodigoVerificacion = codigo };
+                result = db.Query<tbUsuarios>(ScriptDataBase.Usuario_MostrarCodigo, parameters, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
+
+        public IEnumerable<tbUsuarios> ValidarReestablecer(string usuario)
+        {
+
+
+            List<tbUsuarios> result = new List<tbUsuarios>();
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
+            {
+                var parameters = new { Usua_Usuario = usuario };
+                result = db.Query<tbUsuarios>(ScriptDataBase.Usuarios_ValidarReestablecer, parameters, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
+
+        public RequestStatus RestablecerContra(tbUsuarios item)
+        {
+            using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
+            {
+                var parametro = new DynamicParameters();
+                parametro.Add("@Usuar_Id", item.Usuar_Id);
+                parametro.Add("@Usuar_Contrasena", item.Usuar_Contrasena);
+
+                var result = db.Execute(ScriptDataBase.Usua_Restablecer,
+                    parametro,
+                     commandType: CommandType.StoredProcedure
+                    );
+
+                string mensaje = (result == 1) ? "Exito" : "Error";
+                return new RequestStatus { CodeStatus = result, MessageStatus = mensaje };
+            }
+        }
 
     }
 }

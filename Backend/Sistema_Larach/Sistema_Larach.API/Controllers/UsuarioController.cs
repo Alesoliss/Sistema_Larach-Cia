@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Sistema_Larach.API.Services;
 
 namespace Sistema_Larach.API.Controllers
 {
@@ -15,12 +16,13 @@ namespace Sistema_Larach.API.Controllers
     public class UsuarioController : Controller
     {
         private readonly AccesoService _accesoService;
-
+        private readonly IMailService _mailService;
         private readonly IMapper _mapper;
 
-        public UsuarioController(AccesoService accesoService, IMapper mapper)
+        public UsuarioController(AccesoService accesoService, IMapper mapper, IMailService mailService)
         {
             _accesoService = accesoService;
+            _mailService = mailService;
             _mapper = mapper;
         }
 
@@ -198,5 +200,31 @@ namespace Sistema_Larach.API.Controllers
 
             return Ok(list);
         }
+
+        [HttpGet("ValidarReestablecer/{usuario}")]
+        public IActionResult ValidarReestablecer(string usuario)
+        {
+
+            Random random = new Random();
+            int randomNumber = random.Next(100000, 1000000);
+            var estado = _accesoService.ValidarReestablecer(usuario);
+            var lista = estado.Data;
+            if (lista.Count > 0)
+            {
+                var datos = estado.Data as List<tbUsuarios>;
+                var first = datos.FirstOrDefault();
+                _accesoService.ImplementarCodigo(randomNumber.ToString(), first.Usuar_Id);
+                MailData mailData = new MailData();
+                mailData.EmailToId = first.Emple_Correo;
+                mailData.EmailToName = "Gestion HN";
+                mailData.EmailSubject = "Codigo de Reestablecimiento de Contraseña";
+                mailData.EmailBody = "Su codigo es:" + randomNumber.ToString();
+                _mailService.SendMail(mailData);
+            }
+            return Ok(estado);
+
+        }
+
+
     }
 }

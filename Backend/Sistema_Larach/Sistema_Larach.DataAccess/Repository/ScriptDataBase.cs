@@ -46,6 +46,10 @@ namespace Sistema_Larach.DataAccess.Repository
         public static string Usuarios_Delete = "[Acce].[SP_Usuarios_Eliminar]";
         public static string Usuarios_RolDDL = "Acce.SP_Roles_DropDownList";
         public static string Usuarios_EmpleadoDDL = "Gral.SP_Empleados_DropDownList";
+        public static string Usuarios_Codigo = "";
+        public static string Usuario_MostrarCodigo = "";
+        public static string Usuarios_ValidarReestablecer = "";
+        public static string Usua_Restablecer = "[Acce].[SP_Usuarios_ReestablecerContrasenia]";
         #endregion
 
 
