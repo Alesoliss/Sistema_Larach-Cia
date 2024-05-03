@@ -285,6 +285,15 @@ namespace Sistema_Larach.BusinessLogic.Services
 
 
         #region municipiso
+
+
+
+
+
+
+        #region Municipio
+
+
         public ServiceResult Listadounicipios()
         {
             var result = new ServiceResult();
@@ -299,6 +308,117 @@ namespace Sistema_Larach.BusinessLogic.Services
             }
         }
 
+
+
+        public ServiceResult InsertarMunicipio(tbMunicipios item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _municipiosRepository.Insert(item);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    return result.Error(lost);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ddlMunicipios()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var depa = _municipiosRepository.ObtenerMunicipios();
+                return result.Ok(depa);
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResult().Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarMunic(tbMunicipios item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _municipiosRepository.Update(item);
+
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    return result.Error(lost);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+
+            }
+        }
+
+        public ServiceResult BuscarMunicipio1(string codigo)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _municipiosRepository.FindMunicipio(codigo);
+                return result.Ok(list);
+
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex);
+
+            }
+        }
+
+        public IEnumerable<tbMunicipios> BuscarMuic(string codigo)
+        {
+
+            try
+            {
+                return _municipiosRepository.FindMunicipio(codigo);
+
+            }
+            catch
+            {
+                return Enumerable.Empty<tbMunicipios>();
+            }
+        }
+
+        public ServiceResult EliminarMunicipio(string id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _municipiosRepository.EliminarMunicipio(id);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    return result.Error(lost);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        #endregion
         #endregion
 
 

@@ -1970,12 +1970,12 @@
   }
   .p-button.p-button-outlined {
     background-color: transparent;
-    color: #6366F1;
+    color: #efb300;
     border: 1px solid;
   }
   .p-button.p-button-outlined:not(:disabled):hover {
     background: rgba(99, 102, 241, 0.04);
-    color: #6366F1;
+    color: #efb300;
     border: 1px solid;
   }
   .p-button.p-button-outlined:not(:disabled):active {
@@ -2450,15 +2450,15 @@
 .p-buttonset.p-button-danger > .p-button,
 .p-splitbutton.p-button-danger > .p-button {
     color: #ffffff;
-    background: #ef4444;
-    border: 1px solid #ef4444;
+    background: #f7c200;
+    border: 1px solid #f7c200;
   }
   .p-button.p-button-danger:not(:disabled):hover,
 .p-buttonset.p-button-danger > .p-button:not(:disabled):hover,
 .p-splitbutton.p-button-danger > .p-button:not(:disabled):hover {
-    background: #dc2626;
+    background: #ebb901;
     color: #ffffff;
-    border-color: #dc2626;
+    border-color: #ebb901;
   }
   .p-button.p-button-danger:not(:disabled):focus,
 .p-buttonset.p-button-danger > .p-button:not(:disabled):focus,
@@ -2476,28 +2476,28 @@
 .p-buttonset.p-button-danger > .p-button.p-button-outlined,
 .p-splitbutton.p-button-danger > .p-button.p-button-outlined {
     background-color: transparent;
-    color: #ef4444;
+    color: #efb300;
     border: 1px solid;
   }
   .p-button.p-button-danger.p-button-outlined:not(:disabled):hover,
 .p-buttonset.p-button-danger > .p-button.p-button-outlined:not(:disabled):hover,
 .p-splitbutton.p-button-danger > .p-button.p-button-outlined:not(:disabled):hover {
     background: rgba(239, 68, 68, 0.04);
-    color: #ef4444;
+    color: #f7c200;
     border: 1px solid;
   }
   .p-button.p-button-danger.p-button-outlined:not(:disabled):active,
 .p-buttonset.p-button-danger > .p-button.p-button-outlined:not(:disabled):active,
 .p-splitbutton.p-button-danger > .p-button.p-button-outlined:not(:disabled):active {
     background: rgba(239, 68, 68, 0.16);
-    color: #ef4444;
+    color: #f7c200;
     border: 1px solid;
   }
   .p-button.p-button-danger.p-button-text,
 .p-buttonset.p-button-danger > .p-button.p-button-text,
 .p-splitbutton.p-button-danger > .p-button.p-button-text {
     background-color: transparent;
-    color: #ef4444;
+    color: #f7c200;
     border-color: transparent;
   }
   .p-button.p-button-danger.p-button-text:not(:disabled):hover,
@@ -2512,7 +2512,7 @@
 .p-splitbutton.p-button-danger > .p-button.p-button-text:not(:disabled):active {
     background: rgba(239, 68, 68, 0.16);
     border-color: transparent;
-    color: #ef4444;
+    color: #f7c200;
   }
 
   .p-button.p-button-link {

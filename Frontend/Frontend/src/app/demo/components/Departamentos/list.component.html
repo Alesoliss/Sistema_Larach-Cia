@@ -3,8 +3,8 @@
       <div class="card">
           <h5>Departamentos</h5>
           <div class="flex justify-content-start mb-3">
-              <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2" (click)="openModal()"></button>
-          </div>
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-info mr-2" (click)="openModal()"></button>
+        </div>
           
           <p-table [value]="departamento" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
               [paginator]="true" [globalFilterFields]="['dept_Codigo','dept_Descripcion']" responsiveLayout="scroll">
@@ -42,13 +42,13 @@
                   <tr>
                       <td>{{depto.depar_Id}}</td>
                       <td>{{depto.depar_Descripcion}}</td>
-                      <td>
-                          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
-                              (click)="editDepartamento(depto)">Editar</button>
-                          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning mr-2"
-                              (click)="deleteDepartamento(depto)">Eliminar</button>
-                          <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-info"
-                              (click)="showDetails(depto)">Detalles</button>
+                      <td style="align-items: center; text-align: center;">
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info mr-2"
+                        (click)="editDepartamento(depto)">Editar</button>
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2"
+                        (click)="deleteDepartamento(depto)">Eliminar</button>
+                        <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-warning"
+                        (click)="showDetails(depto)">Detalles</button>
                       </td>
                   </tr>
               </ng-template>

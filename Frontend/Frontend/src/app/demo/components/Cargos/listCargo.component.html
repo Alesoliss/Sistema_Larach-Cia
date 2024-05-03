@@ -3,7 +3,7 @@
         <div class="card">
             <h5>Cargos</h5>
             <div class="flex justify-content-start mb-3">
-                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2" (click)="openModal()"></button>
+                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-info mr-2" (click)="openModal()"></button>
             </div>
             
             <p-table [value]="cargo" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
@@ -43,12 +43,12 @@
                         <td>{{cargo.cargo_Id}}</td>
                         <td>{{cargo.cargo_Descripcion}}</td>
   
-                        <td>
-                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                        <td style="align-items: center; text-align: center;">
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info mr-2"
                                 (click)="editDepartamento(cargo)">Editar</button>
-                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning mr-2"
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2"
                                 (click)="deleteDepartamento(cargo)">Eliminar</button>
-                            <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-info"
+                                <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-warning"
                                 (click)="showDetails(cargo)">Detalles</button>
                         </td>
                     </tr>
