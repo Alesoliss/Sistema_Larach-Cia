@@ -90,6 +90,12 @@ export class AppMenuComponent implements OnInit {
                                 icon: 'pi pi-fw pi-times-circle',
                                 routerLink: ['/app/municipio']
                             },
+                            {
+                                label: 'Empleados',
+                                icon: 'pi pi-fw pi-times-circle',
+                                routerLink: ['/app/Empleado']
+                            },
+                           
                            
                         ]
                     },
@@ -229,8 +235,17 @@ export class AppMenuComponent implements OnInit {
                                 label: 'Categoria',
                                 icon: 'pi pi-fw pi-lock',
                                 routerLink: ['/app/categoria']
-                            }
-                           
+                            },
+                            {
+                                label: 'Productos',
+                                icon: 'pi pi-fw pi-lock',
+                                routerLink: ['/app/Productos']
+                            },
+                            {
+                                label: 'Sucursales',
+                                icon: 'pi pi-fw pi-lock',
+                                routerLink: ['/app/Sucursal']
+                            },
                         ]
                     },
                

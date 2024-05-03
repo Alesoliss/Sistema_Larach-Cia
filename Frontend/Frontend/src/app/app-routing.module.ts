@@ -13,6 +13,9 @@ import { MunicipioListadoComponent } from './demo/components/Municipios/listMuni
 import { UsuarioListadoComponent } from './demo/components/Usuarios/listUsuarios.component';
 import { UnidadesListadoComponent } from './demo/components/Unidades/listUnidad.component';
 import { RolesListadoComponent } from './demo/components/Roles/listRol.component';
+import { EmpleadoListadoComponent } from './demo/components/Empleados/listEmpleados.component';
+import { ProductoListadoComponent } from './demo/components/Productos/listProductos.component';
+import { SucursalesListadoComponent } from './demo/components/Sucursales/listSucursales.component';
 import { ListDemoComponent } from './demo/components/uikit/list/listdemo.component';
 
 
@@ -43,7 +46,9 @@ import { ListDemoComponent } from './demo/components/uikit/list/listdemo.compone
                     { path: 'usuario', component: UsuarioListadoComponent }, 
                     { path: 'unidad', component: UnidadesListadoComponent },
                     { path: 'rol', component: RolesListadoComponent },
-                     
+                    { path: 'Empleado', component: EmpleadoListadoComponent },
+                    { path: 'Productos', component: ProductoListadoComponent },
+                    { path: 'Sucursal', component: SucursalesListadoComponent },
                 ]
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },

@@ -39,6 +39,9 @@ export class AppComponent {
         ListarPromocionesSucursales (){
             this.router.navigate(['categoria']);
         }
+        ListarPromocionesProductos (){
+            this.router.navigate(['Productos']);
+        }
 
         Inicio (){
             this.router.navigate(['Principal']);
