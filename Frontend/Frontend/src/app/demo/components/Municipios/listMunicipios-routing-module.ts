@@ -5,6 +5,7 @@ import { MunicipioListadoComponent } from './listMunicipios.component';
 @NgModule({
 	imports: [RouterModule.forChild([
 		{ path: '', component: MunicipioListadoComponent }
+
 	])],
 	exports: [RouterModule]
 })

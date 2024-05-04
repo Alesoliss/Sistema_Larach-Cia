@@ -8,11 +8,14 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
+import { Message, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  styleUrls: ['./list.component.css'],
+  providers: [MessageService]
+
 })
 export class DepartamentosListadoComponent implements OnInit {
   departamento!: DepartamentosViewModel[];
