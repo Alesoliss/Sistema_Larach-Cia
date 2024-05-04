@@ -16,6 +16,13 @@ export class MunicipiosServiceService {
     return this.http.post<MunicipiosViewModel>(`${this.baseUrl}/Create`, municipio);
   }
 
+  actualizarMunicipio(municipio: MunicipiosViewModel): Observable<any> {
+    const url = `${this.baseUrl}/Actualizar`;
+    return this.http.put(url, municipio);
+  }
+  
+
+
   eliminarMunicipio(municipioId: string): Observable<any> {
     const url = `${this.baseUrl}/Eliminar/${municipioId}`;
     return this.http.delete(url);

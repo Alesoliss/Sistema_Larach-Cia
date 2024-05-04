@@ -71,7 +71,7 @@ namespace Sistema_Larach.DataAccess.Repository
             {
                 var parametro = new DynamicParameters();
                 parametro.Add("@Munic_Id", item.Munic_Id);
-                parametro.Add("@Depar_Descripcion", item.Munic_Descripcion);
+                parametro.Add("@Munic_Descripcion", item.Munic_Descripcion);
                 parametro.Add("@Depar_Id", item.Depar_Id);
                 parametro.Add("@Munic_UsuarioModificacion", 1);
                 parametro.Add("@Munic_FechaModificacion", DateTime.Now);
