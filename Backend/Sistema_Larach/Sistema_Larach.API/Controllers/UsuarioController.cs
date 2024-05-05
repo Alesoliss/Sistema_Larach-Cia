@@ -109,12 +109,12 @@ namespace Sistema_Larach.API.Controllers
             };
             return Ok(data);
         }
-        [HttpGet("Login/{usuario}/{contrasena}")]
+        [HttpGet("Login/{usuario},{contrasena}")]
         public IActionResult Login(string usuario, string contrasena)
         {
-            var list = _accesoService.LoginUser(usuario, contrasena);
+            var list = _accesoService.LoginUsuario(usuario, contrasena);
 
-            return Ok(list);
+            return Ok(list.Data);
         }
 
         [HttpPost("Insert/Usuarios")]

@@ -49,29 +49,26 @@
           <img src="../../../../assets/demo/images/access/logoletra.png" style="width: 200px;">
         </div>
         
-        <form action="#">
-          <div class="input-boxes">
-            <div class="input-box">
-              <i class="fas fa-envelope"></i>
-              <input type="text" placeholder="Ingrese su Usuario" required>
-            </div>
-            <div class="input-box">
-              <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Ingrese su Contraseña" required>
-            </div>
-            <div class="text"><a href="#">Mas Informacion</a></div>
-            <div class="button input-box">
-              <!-- <input type="submit" value="Submit"> -->
-              <button class="botonEnviar" (click)="irAPaginaPrincipal()" type="submit">Ingresar</button>
-            </div>
-            
-            <div class="text sign-up-text">Informacion con  <label for="flip"> Supervisores</label></div>
+      
+        <div class="login-card">
+          <h2>Larach y Cia</h2>
+          <div class="form-group">
+            <input type="text"  name="usuario" placeholder="Usuario" required class="form-control" [(ngModel)]="usuario">
           </div>
-        </form>
+          <div class="form-group">
+            <input type="password"  name="password" placeholder="Contraseña" required class="form-control" [(ngModel)]="contrase">
+          </div>
+          <button (click)="onLogin()" class="login-button">Iniciar Sesión</button>
+          <div *ngIf="errorMessage">{{ errorMessage }}</div>
+          <div class="forgot-password">Olvidé mi contraseña</div>
+        </div>
+      
+        
+    
       </div>
       <div class="signup-form">
         <div class="title">Loguin</div>
-        <form action="#">
+        <!-- <form action="#">
           <div class="input-boxes">
             <div class="input-box">
               <i class="fas fa-user"></i>
@@ -90,7 +87,7 @@
             </div>
             <div class="text sign-up-text">Already have an account? <label for="flip">Login now</label></div>
           </div>
-        </form>
+        </form> -->
       </div>
     </div>
   </div>

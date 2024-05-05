@@ -149,25 +149,17 @@ namespace Sistema_Larach.DataAccess.Repository
                 });
             }
         }
-        public tbUsuarios Login(string Usuario, string Contra)
+     
+        public IEnumerable<tbUsuarios> Login(string usuario, string contra)
         {
-            string sql = ScriptDataBase.Usuarios_Login;
+
 
             List<tbUsuarios> result = new List<tbUsuarios>();
-
             using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
             {
-                var parameters = new { @Usuario = Usuario, @Contrasena = Contra };
-                result = db.Query<tbUsuarios>(sql, parameters, commandType: CommandType.StoredProcedure).ToList();
-
-                var list = new tbUsuarios();
-
-                if(result.Count > 0)
-                {
-                    list = result.First();
-                }
-
-                return list;
+                var parameters = new { Usuario = usuario, Contrasena = contra };
+                result = db.Query<tbUsuarios>(ScriptDataBase.Usuarios_Login, parameters, commandType: CommandType.StoredProcedure).ToList();
+                return result;
             }
         }
 

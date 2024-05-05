@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {UsuariosViewModel} from '../Models/UsuariosViewModel';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/internal/Observable';
 
 
 @Injectable({
@@ -13,4 +14,12 @@ export class UsuariosServiceService {
   getUsuarios (){
     return this.http.get<UsuariosViewModel[]>(this.Url);
   }
+  private baseUrl = 'https://localhost:44300/api/Usuario';
+
+ 
+  login(usuario: string, contraseña: string): Observable<any> {
+    const url = `${this.baseUrl}/Login/${encodeURIComponent(usuario)},${encodeURIComponent(contraseña)}`;
+    return this.http.get<any>(url);
+  }
+
 }

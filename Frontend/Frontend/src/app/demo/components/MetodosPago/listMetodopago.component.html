@@ -45,11 +45,11 @@
   
                         <td style="align-items: center; text-align: center;">
                             <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info mr-2"
-                                (click)="editImpuesto(impuesto)">Editar</button>
+                                >Editar</button>
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2"
-                                (click)="deleteImpuesto(impuesto)">Eliminar</button>
+                                >Eliminar</button>
                                 <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-warning"
-                                (click)="showDetails(impuesto)">Detalles</button>
+                                >Detalles</button>
                         </td>
                     </tr>
                 </ng-template>
@@ -68,8 +68,8 @@
     </div>
 </div>
   
-<!-- Modal para editar impuesto -->
-<p-dialog [(visible)]="editModal" [modal]="true" [style]="{ width: '50%' }">
+ Modal para editar impuesto 
+ <p-dialog [(visible)]="editModal" [modal]="true" [style]="{ width: '50%' }">
     <ng-template pTemplate="header">
         <h5>Editar Impuesto</h5>
     </ng-template>
@@ -87,13 +87,13 @@
         </form>
     </ng-template>
     <ng-template pTemplate="footer">
-        <!-- Botones del pie de página -->
+         Botones del pie de página
         <button pButton type="button" label="Cancelar" (click)="editModal = false"></button>
         <button pButton type="button" label="Guardar" class="p-button-success" (click)="guardarCambios()"></button>
     </ng-template>
 </p-dialog>
   
-<!-- Modal para confirmar eliminación -->
+ Modal para confirmar eliminación
 <p-dialog [(visible)]="deleteModal" header="Confirmar Eliminación" [modal]="true" [style]="{width: '50%'}">
     <ng-template pTemplate="content">
         ¿Estás seguro que deseas eliminar este impuesto?
@@ -102,4 +102,4 @@
         <button pButton type="button" label="No" class="p-button-text" (click)="deleteModal = false"></button>
         <button pButton type="button" label="Sí" class="p-button-text" (click)="eliminarImpuesto()"></button>
     </ng-template>
-</p-dialog>
+</p-dialog> 

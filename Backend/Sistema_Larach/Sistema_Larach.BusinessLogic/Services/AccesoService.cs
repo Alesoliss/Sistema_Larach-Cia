@@ -74,27 +74,18 @@ namespace Sistema_Larach.BusinessLogic.Services
                 throw;
             }
         }
-        public ServiceResult LoginUser(string usuario, string contrasena)
+        public ServiceResult LoginUsuario(string usuario, string contraseña)
         {
             var result = new ServiceResult();
-
             try
             {
-                var list = _usuariosRepository.Login(usuario, contrasena);
-                if(list.Usuar_Id != 0)
-                {
-                    return result.Ok(list);
-                }
-                else
-                {
-                    return result.Error(list);
-                }
+                var lost = _usuariosRepository.Login(usuario, contraseña);
+
+                return result.Ok(lost);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"errorrr: {ex.Message}");
-
-                throw;
+                return result.Error(ex.Message);
             }
         }
 

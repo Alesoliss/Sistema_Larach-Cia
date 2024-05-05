@@ -37,7 +37,7 @@ namespace Sistema_Larach.DataAccess.Repository
 
 
         #region usuarios
-        public static string Usuarios_Login = "Acce.SP_Usuarios_Login";
+        public static string Usuarios_Login = "[Acce].[SP_Usuarios_Login]";
         public static string Usuarios_Insertar = "Acce.SP_Usuarios_Insertar";
         public static string Usuarios_Listar = "Acce.SP_Usuarios_Lista";
         public static string Usuarios_Buscar = "[Acce].[SP_Usuarios_Buscar]";

@@ -11,6 +11,8 @@ import { MunicipiosServiceService } from '../../api/Services/municipios-service.
 import { DepartamentoServiceService } from '../../api/Services/departamento-service.service';
  import { Message, MessageService } from 'primeng/api';
  import { ToastModule } from 'primeng/toast'; 
+ import { MensajeViewModel } from '../../api/Models/MensajeViewModel';
+
 @Component({
   selector: 'app-list',
   templateUrl: './listMunicipios.component.html',
@@ -30,7 +32,7 @@ showSuccessViaMessages() {
   showModal: boolean = false;
   editModal: boolean = false;
   showDeleteConfirmation: boolean = false;
-
+  MensajeViewModel!: MensajeViewModel[];
   deleteModal: boolean = false;
   impuestoSeleccionado: MunicipiosViewModel = { 
     munic_Id: '', 
@@ -44,6 +46,7 @@ showSuccessViaMessages() {
     munic_Estado: null, 
     usuarioCreacion: '', 
     usuarioModificacion: '' 
+    
   };
 
 
@@ -142,7 +145,7 @@ confirmarEliminacion(): void {
               this.municipioSeleccionadoId = '';
           },
           (error) => {
-              console.error('Error al eliminar el municipio', error);
+            this.messageService.add({ severity: 'Error', summary: 'Danger Message', detail: 'El Municipio no se eliminado correctamente' });
               this.municipioSeleccionadoId = '';
           }
       );
@@ -159,7 +162,18 @@ cancelarEliminacion(): void {
   this.municipioSeleccionadoId = '';
 }
 
+    //Funcionan como regex
+    ValidarNumeros(event: KeyboardEvent) {
+      if (!/[0-9]/.test(event.key) && event.key !== 'Backspace' && event.key !== 'Tab') {
+          event.preventDefault();
+      }
+  }
+  validarTexto(event: KeyboardEvent) {
 
+      if (!/^[a-zA-Z\s]+$/.test(event.key) && event.key !== 'Backspace' && event.key !== 'Tab' && event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
+          event.preventDefault();
+      }
+  }
   
 
 openModal(tipo: string, municipio?: MunicipiosViewModel): void {

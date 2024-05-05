@@ -3,6 +3,7 @@
     <div class="col-12">
         <div class="card">
             <h5>Municipios</h5>
+            
             <div class="flex justify-content-start mb-3">
                 <button type="button" pButton (click)="showSuccessViaMessages()" label="Success" class="p-button-success"></button>
                 <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-info mr-2" (click)="openModal('nuevo')"></button>
@@ -48,8 +49,9 @@
                         <td style="align-items: center; text-align: center;">
                             <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info mr-2"
                                 (click)="openModal('editar', municipio)">Editar</button> 
-                            <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-danger mr-2"
-                                (click)="showDetails(municipio)">Detalles</button>
+                            <!-- <button  class="p-button-rounded p-button-danger mr-2"
+                                (click)="showDetails(municipio)">Detalles</button> -->
+                                <button pButton pRipple icon="pi pi-info-circle" label="Detalles" class="p-button-raised p-button-secondary" (click)="detalles(muni.munic_Id)"></button>
 
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning mr-2"
                                 (click)="eliminarMunicipio(municipio.munic_Id)">Eliminar</button>

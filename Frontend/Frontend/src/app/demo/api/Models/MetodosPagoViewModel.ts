@@ -9,3 +9,17 @@ export class MetodosPagoViewModel {
     usuarioCreacion?: string;
     usuarioModificacion?: string;
 }
+
+export class MetodoPagoEnviar {
+    mtPag_Id:number;
+    mtPag_Descripcion: string;
+}
+
+export class Fill {
+    mtPag_Id!: number;
+    mtPag_Descripcion!: string;
+    usuarioCreacion?: string;
+    usuarioModificacion?: string;
+    mtPag_FechaCreacion!: Date;
+    mtPag_FechaModificacion?: Date | null;
+}
