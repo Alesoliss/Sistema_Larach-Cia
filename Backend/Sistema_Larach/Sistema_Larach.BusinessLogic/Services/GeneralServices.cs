@@ -852,6 +852,82 @@ namespace Sistema_Larach.BusinessLogic.Services
             }
         }
 
+        public ServiceResult InsertarUnidades(tbUnidades item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _unidadesRepository.Insert(item);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    return result.Error(lost);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        public ServiceResult EliminarUnidades(int id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _unidadesRepository.EliminarUnidades(id);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    return result.Error(lost);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        public ServiceResult ActualizarUnidades(tbUnidades item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _unidadesRepository.Update(item);
+
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    return result.Error(lost);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+
+            }
+        }
+        public IEnumerable<tbUnidades> BuscarUnidades(int codigo)
+        {
+
+            try
+            {
+                return _unidadesRepository.FindUnidad(codigo);
+
+            }
+            catch
+            {
+                return Enumerable.Empty<tbUnidades>();
+            }
+        }
+
         #endregion
 
         #region contra

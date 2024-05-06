@@ -8,7 +8,7 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
-import { Message, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { MensajeViewModel } from '../../api/Models/MensajeViewModel';
 import { ToastModule } from 'primeng/toast'; 
 @Component({
@@ -36,7 +36,7 @@ export class DepartamentosListadoComponent implements OnInit {
     usuarioCreacion: '', 
     usuarioModificacion: '' 
 };
-  constructor(private service: DepartamentoServiceService, private router: Router) {}
+  constructor(private service: DepartamentoServiceService, private router: Router,private messageService: MessageService) {}
 
   ngOnInit(): void {
     this.getDepartamentos();
@@ -51,7 +51,9 @@ export class DepartamentosListadoComponent implements OnInit {
       );
     });
   }
-
+  showToast(severity: string, summary: string, detail: string): void {
+    this.messageService.add({ severity: severity, summary: summary, detail: detail });
+  }
   getDepartamentos(): void {
     this.service.getDepartamento().subscribe(
       (response: any) => {
@@ -85,18 +87,19 @@ export class DepartamentosListadoComponent implements OnInit {
                 console.log('Municipio eliminado exitosamente', response);
   
                 // Añadimos un mensaje de éxito aquí para verificar si se ejecuta
-                // this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Municipio eliminado correctamente' });
+                this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Eliminado con Exito', life: 3000 });
+  
   
                 this.getDepartamentos();
                 this.deparSeleccionadoId = '';
             },
             (error) => {
-              // this.messageService.add({ severity: 'Error', summary: 'Danger Message', detail: 'El Municipio no se eliminado correctamente' });
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se logro Eliminar', life: 3000 });
                 this.deparSeleccionadoId = '';
             }
         );
     } else {
-        console.error('ID del municipio seleccionado está vacío');
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se logro obtener el Id del Departamento', life: 3000 });
     }
     this.showDeleteConfirmation = false;
   }
@@ -154,36 +157,53 @@ export class DepartamentosListadoComponent implements OnInit {
 
   
   guardarNuevodepar(): void {
+    // Verificar que los campos requeridos no estén vacíos
+    if (!this.departamentoSeleccionado.depar_Descripcion.trim()) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor ingrese el nombre del departamento', life: 3000 });
+      return; // Detener la ejecución si falta el nombre del departamento
+    }
+  
+    // Continuar con la lógica si los campos requeridos están llenos
     this.service.insertardepartamento(this.departamentoSeleccionado).subscribe(
-       (response: any) => {
+      (response: any) => {
         console.log('Municipio insertado correctamente:', response);
-  
-        // this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Municipio insertado correctamente' });
-  
-         this.getDepartamentos();
+        // Agregar mensaje de éxito si es necesario
+        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Insertado con Exito', life: 3000 });
+        this.getDepartamentos();
         this.closeModal('nuevo');
       },
-      error => {
+      (error) => {
         console.error('Error al insertar el municipio:', error);
-        // this.showToast('error', 'Error Message', 'Error al insertar el municipio');
+        // Mostrar mensaje de error si es necesario
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se logro insertar', life: 3000 });
+      }
+    );
+  }
   
-       }
-     );
-   }
-   guardarCambios(): void {
+  guardarCambios(): void {
+    // Verificar que los campos requeridos no estén vacíos
+    if (!this.departamentoSeleccionado.depar_Descripcion.trim()) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor ingrese el nombre del departamento', life: 3000 });
+      return; // Detener la ejecución si falta el nombre del departamento
+    }
+  
+    // Continuar con la lógica si los campos requeridos están llenos
     this.service.actualizardepartamento(this.departamentoSeleccionado).subscribe(
-      (response) => {
-        console.log('departamento actualizado correctamente:', response);
-        // this.showToast('success', 'Success Message', 'Municipio actualizado correctamente');
+      (response: any) => {
+        console.log('Departamento actualizado correctamente:', response);
+        // Agregar mensaje de éxito si es necesario
+        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Editado con Exito', life: 3000 });
         this.getDepartamentos();
         this.closeModal('editar');
       },
       (error) => {
         console.error('Error al actualizar el departamento:', error);
-        // this.showToast('error', 'Error Message', 'Error al actualizar el municipio');
+        // Mostrar mensaje de error si es necesario
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se logro Editar', life: 3000 });
       }
     );
   }
+  
 
   // editDepartamento(depto: DepartamentosViewModel): void {
   //   this.departamentoSeleccionado = depto;
@@ -216,7 +236,8 @@ export class DepartamentosListadoComponent implements OnInit {
     TableModule,
     ButtonModule,
     InputTextModule,
-    DialogModule
+    DialogModule,
+    ToastModule
   ],
   declarations: [DepartamentosListadoComponent]
 })

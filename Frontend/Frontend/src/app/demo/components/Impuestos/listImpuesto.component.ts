@@ -10,10 +10,12 @@ import { ImpuestosViewModel } from '../../api/Models/ImpuestosViewModel';
 import { ImpuestoServiceService } from '../../api/Services/impuestos-service.service';
 import { MensajeViewModel } from '../../api/Models/MensajeViewModel';
 import { ToastModule } from 'primeng/toast';
+import { ConfirmationService, MessageService } from 'primeng/api';
 @Component({
   selector: 'app-list',
   templateUrl: './listImpuesto.component.html',
-  styleUrls: ['./listImpuesto.component.css']
+  styleUrls: ['./listImpuesto.component.css'],
+  providers: [MessageService]
 })
 export class ImpuestoListadoComponent implements OnInit {
   impuesto!: ImpuestosViewModel[];
@@ -34,7 +36,7 @@ export class ImpuestoListadoComponent implements OnInit {
     usuarioModificacion: '' 
   };
 
-  constructor(private service: ImpuestoServiceService, private router: Router) {}
+  constructor(private service: ImpuestoServiceService, private router: Router,private messageService: MessageService) {}
 
   ngOnInit(): void {
     this.getImpuesto();
@@ -54,7 +56,9 @@ export class ImpuestoListadoComponent implements OnInit {
       );
     });
   }
-
+  showToast(severity: string, summary: string, detail: string): void {
+    this.messageService.add({ severity: severity, summary: summary, detail: detail });
+  }
   getImpuesto(): void {
     this.service.getImpuesto().subscribe(
       (response: any) => {
@@ -89,18 +93,18 @@ export class ImpuestoListadoComponent implements OnInit {
                 console.log('impuesto eliminado exitosamente', response);
   
                 // Añadimos un mensaje de éxito aquí para verificar si se ejecuta
-                // this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Municipio eliminado correctamente' });
+                this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Eliminado con Exito', life: 3000 });
   
                 this.getImpuesto();
                 this.impuestoeleccionadoId = '';
             },
             (error) => {
-              // this.messageService.add({ severity: 'Error', summary: 'Danger Message', detail: 'El Municipio no se eliminado correctamente' });
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se logro Eliminar', life: 3000 });
                 this.impuestoeleccionadoId = '';
             }
         );
     } else {
-        console.error('ID del impuesto seleccionado está vacío');
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se logro obtener el Id de municipio', life: 3000 });
     }
     this.showDeleteConfirmation = false;
   }
@@ -157,36 +161,54 @@ export class ImpuestoListadoComponent implements OnInit {
 
   
   guardarNuevocategoria(): void {
+    // Verificar que el campo requerido no esté vacío
+    if (!this.impuestoSeleccionado.impue_Descripcion || isNaN(this.impuestoSeleccionado.impue_Descripcion)) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor ingrese un número válido para la descripción del impuesto', life: 3000 });
+      return; // Detener la ejecución si el campo requerido está vacío o no es un número
+    }
+  
+    // Continuar con la lógica si el campo requerido es válido
     this.service.insertarImpuesto(this.impuestoSeleccionado).subscribe(
-       (response: any) => {
-        console.log('impuesto insertado correctamente:', response);
-  
-        // this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Municipio insertado correctamente' });
-  
-         this.getImpuesto();
+      (response: any) => {
+        console.log('Impuesto insertado correctamente:', response);
+        // Agregar mensaje de éxito si es necesario
+        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Insertado con Exito', life: 3000 });
+        this.getImpuesto();
         this.closeModal('nuevo');
       },
-      error => {
+      (error) => {
         console.error('Error al insertar el impuesto:', error);
-        // this.showToast('error', 'Error Message', 'Error al insertar el municipio');
+        // Mostrar mensaje de error si es necesario
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se logro insertar', life: 3000 });
+      }
+    );
+  }
   
-       }
-     );
-   }
-   guardarCambios(): void {
+  
+  guardarCambios(): void {
+    // Verificar que el campo requerido no esté vacío ni sea NaN
+    if (!this.impuestoSeleccionado.impue_Descripcion || isNaN(this.impuestoSeleccionado.impue_Descripcion)) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor ingrese un número válido para la descripción del impuesto', life: 3000 });
+      return; // Detener la ejecución si el campo requerido está vacío o no es un número válido
+    }
+  
+    // Continuar con la lógica si el campo requerido es válido
     this.service.actualizarImpuesto(this.impuestoSeleccionado).subscribe(
-      (response) => {
-        console.log('impuesto actualizado correctamente:', response);
-        // this.showToast('success', 'Success Message', 'Municipio actualizado correctamente');
+      (response: any) => {
+        console.log('Impuesto actualizado correctamente:', response);
+        // Agregar mensaje de éxito si es necesario
+        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Editado con Exito', life: 3000 });
         this.getImpuesto();
         this.closeModal('editar');
       },
       (error) => {
         console.error('Error al actualizar el impuesto:', error);
-        // this.showToast('error', 'Error Message', 'Error al actualizar el municipio');
+        // Mostrar mensaje de error si es necesario
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se logro Editar', life: 3000 });
       }
     );
   }
+  
   // editDepartamento(depto: ImpuestosViewModel): void {
   //   this.impuestoSeleccionado = depto;
   //   this.editModal = true;
@@ -213,7 +235,8 @@ export class ImpuestoListadoComponent implements OnInit {
     TableModule,
     ButtonModule,
     InputTextModule,
-    DialogModule
+    DialogModule,
+    ToastModule
   ],
   declarations: [ImpuestoListadoComponent]
 })

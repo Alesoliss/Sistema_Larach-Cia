@@ -9,7 +9,7 @@ import { DialogModule } from 'primeng/dialog';
 import { MunicipiosViewModel } from '../../api/Models/MunicipiosViewModel';
 import { MunicipiosServiceService } from '../../api/Services/municipios-service.service';
 import { DepartamentoServiceService } from '../../api/Services/departamento-service.service';
- import { Message, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
  import { ToastModule } from 'primeng/toast'; 
  import { MensajeViewModel } from '../../api/Models/MensajeViewModel';
 
@@ -21,12 +21,12 @@ import { DepartamentoServiceService } from '../../api/Services/departamento-serv
 })
 
 export class MunicipioListadoComponent implements OnInit {
-  msgs: Message[] = [];
+  // msgs: Message[] = [];
 
-showSuccessViaMessages() {
-  this.msgs = [];
-  this.msgs.push({ severity: 'success', summary: 'Success Message', detail: 'Message sent' });
-}
+// showSuccessViaMessages() {
+//   this.msgs = [];
+//   this.msgs.push({ severity: 'success', summary: 'Success Message', detail: 'Message sent' });
+// }
   impuesto!: MunicipiosViewModel[];
 
   showModal: boolean = false;

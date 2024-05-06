@@ -1,6 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ToolbarModule } from 'primeng/toolbar';
+import { FormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { DialogModule } from 'primeng/dialog';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast'; // Importa ToastModule aquí
 
 import { CargosListadoComponent } from './listImpuesto.component';
 
@@ -8,7 +14,12 @@ import { CargosListadoComponent } from './listImpuesto.component';
     declarations: [CargosListadoComponent],
     imports: [
         CommonModule,
-        ToolbarModule
+        FormsModule,
+        TableModule,
+        ButtonModule,
+        InputTextModule,
+        DialogModule, 
+        ToastModule
     ]
 })
 export class CargosListadoModule { }

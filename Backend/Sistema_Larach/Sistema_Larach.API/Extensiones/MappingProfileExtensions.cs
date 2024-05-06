@@ -30,7 +30,7 @@ namespace Sistema_Larach.API.Extensiones
             CreateMap<ProveedoresViewModel, tbProveedores>().ReverseMap();
             CreateMap<RolesViewModel, tbRoles>().ReverseMap();
             CreateMap<SucursalesViewModel, tbSucursales>().ReverseMap();
-            CreateMap<UnidadesViewmodel, tbEstadosCiviles>().ReverseMap();
+            CreateMap<UnidadesViewmodel, tbUnidades>().ReverseMap();
             CreateMap<UsuariosViewModel, tbUsuarios>().ReverseMap();
             CreateMap<VentasDetalleViewModel, tbVentasDetalle>().ReverseMap();
             CreateMap<tbVentasEncabezado, tbVentasEncabezado>().ReverseMap();

@@ -11,10 +11,12 @@ import { DialogModule } from 'primeng/dialog';
 import { CategoriasViewModel } from '../../api/Models/CategoriasViewModel';
 import { MensajeViewModel } from '../../api/Models/MensajeViewModel';
 import { ToastModule } from 'primeng/toast'; 
+import { ConfirmationService, MessageService } from 'primeng/api';
 @Component({
   selector: 'app-list',
   templateUrl: './listCategoria.component.html',
-  styleUrls: ['./listCategoria.component.css']
+  styleUrls: ['./listCategoria.component.css'],
+  providers: [MessageService]
 })
 
 
@@ -39,7 +41,7 @@ export class CategoriaListadoComponent implements OnInit {
 };
 
 
-  constructor(private service: CategoriasServiceservice, private router: Router) {}
+  constructor(private service: CategoriasServiceservice, private router: Router, private messageService: MessageService) {}
 
   ngOnInit(): void {
     this.getCategoria();
@@ -58,7 +60,9 @@ export class CategoriaListadoComponent implements OnInit {
       );
     });
   }
-  
+  showToast(severity: string, summary: string, detail: string): void {
+    this.messageService.add({ severity: severity, summary: summary, detail: detail });
+  }
 
   getCategoria(): void {
     this.service.getCategoria().subscribe(
@@ -157,36 +161,53 @@ export class CategoriaListadoComponent implements OnInit {
     }
   }
   guardarNuevocategoria(): void {
+    // Verificar que los campos requeridos no estén vacíos
+    if (!this.categoriaSeleccionada.categ_Descripcion.trim() || !this.categoriaSeleccionada.cate_ImagenUrl.trim()) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor complete todos los campos', life: 3000 });
+      return; // Detener la ejecución si falta algún campo requerido
+    }
+  
+    // Continuar con la lógica si los campos requeridos están llenos
     this.service.insertarCategoria(this.categoriaSeleccionada).subscribe(
-       (response: any) => {
-        console.log('Municipio insertado correctamente:', response);
-  
-        // this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Municipio insertado correctamente' });
-  
-         this.getCategoria();
+      (response: any) => {
+        console.log('Categoría insertada correctamente:', response);
+        // Agregar mensaje de éxito si es necesario
+        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Insertado con Exito', life: 3000 });
+        this.getCategoria();
         this.closeModal('nuevo');
       },
-      error => {
-        console.error('Error al insertar el municipio:', error);
-        // this.showToast('error', 'Error Message', 'Error al insertar el municipio');
+      (error) => {
+        console.error('Error al insertar la categoría:', error);
+        // Mostrar mensaje de error si es necesario
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se logro insertar', life: 3000 });
+      }
+    );
+  }
   
-       }
-     );
-   }
-   guardarCambios(): void {
+  guardarCambios(): void {
+    // Verificar que los campos requeridos no estén vacíos
+    if (!this.categoriaSeleccionada.categ_Descripcion.trim() || !this.categoriaSeleccionada.cate_ImagenUrl.trim()) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor complete todos los campos', life: 3000 });
+      return; // Detener la ejecución si falta algún campo requerido
+    }
+  
+    // Continuar con la lógica si los campos requeridos están llenos
     this.service.actualizarCategoria(this.categoriaSeleccionada).subscribe(
-      (response) => {
-        console.log('Municipio actualizado correctamente:', response);
-        // this.showToast('success', 'Success Message', 'Municipio actualizado correctamente');
+      (response: any) => {
+        console.log('Categoría actualizada correctamente:', response);
+        // Agregar mensaje de éxito si es necesario
+        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Editado con Exito', life: 3000 });
         this.getCategoria();
         this.closeModal('editar');
       },
       (error) => {
-        console.error('Error al actualizar el municipio:', error);
-        // this.showToast('error', 'Error Message', 'Error al actualizar el municipio');
+        console.error('Error al actualizar la categoría:', error);
+        // Mostrar mensaje de error si es necesario
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se logro Editar', life: 3000 });
       }
     );
   }
+  
   // editDepartamento(depto: CategoriasViewModel): void {
   //   this.categoriaSeleccionada = depto;
   //   this.editModal = true;

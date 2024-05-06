@@ -11,10 +11,12 @@ import { EstadosCivilesServiceService } from '../../api/Services/estadosCiviles-
 import { EstadosCivilesViewModel } from '../../api/Models/EstadosCivilesViewModel';
 import { MensajeViewModel } from '../../api/Models/MensajeViewModel';
 import { ToastModule } from 'primeng/toast'; 
+import { ConfirmationService, MessageService } from 'primeng/api';
 @Component({
   selector: 'app-list',
   templateUrl: './listEstado.component.html',
-  styleUrls: ['./listEstado.component.css']
+  styleUrls: ['./listEstado.component.css'],
+  providers: [MessageService]
 })
 export class EstadoCivilListadoComponent implements OnInit {
   estado!: EstadosCivilesViewModel[];
@@ -35,7 +37,7 @@ export class EstadoCivilListadoComponent implements OnInit {
     usuarioModificacion: '' 
   };
 
-  constructor(private service: EstadosCivilesServiceService, private router: Router) {}
+  constructor(private service: EstadosCivilesServiceService, private router: Router,private messageService: MessageService) {}
 
   ngOnInit(): void {
     this.getEstado();
@@ -54,6 +56,9 @@ export class EstadoCivilListadoComponent implements OnInit {
         ((estado.estad_Estado !== null && estado.estad_Estado.toString().toLowerCase().includes(searchText)))
       );
     });
+  }
+  showToast(severity: string, summary: string, detail: string): void {
+    this.messageService.add({ severity: severity, summary: summary, detail: detail });
   }
 
   getEstado(): void {
@@ -87,13 +92,13 @@ export class EstadoCivilListadoComponent implements OnInit {
                 console.log('Municipio eliminado exitosamente', response);
   
                 // Añadimos un mensaje de éxito aquí para verificar si se ejecuta
-                // this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Municipio eliminado correctamente' });
+                this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Insertado con Exito', life: 3000 });
   
                 this.getEstado();
                 this.civilSeleccionadoId = '';
             },
             (error) => {
-              // this.messageService.add({ severity: 'Error', summary: 'Danger Message', detail: 'El Municipio no se eliminado correctamente' });
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se logro Eliminar', life: 3000 });
                 this.civilSeleccionadoId = '';
             }
         );
@@ -152,37 +157,54 @@ export class EstadoCivilListadoComponent implements OnInit {
     }
   }
   guardarNuevocategoria(): void {
+    // Verificar que el campo requerido no esté vacío
+    if (!this.estadoSeleccionado.estad_Descripcion.trim()) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor ingrese la descripción del estado civil', life: 3000 });
+      return; // Detener la ejecución si falta el campo requerido
+    }
+  
+    // Continuar con la lógica si el campo requerido está lleno
     this.service.insertarCivil(this.estadoSeleccionado).subscribe(
-       (response: any) => {
-        console.log('estadocivil insertado correctamente:', response);
-  
-        // this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Municipio insertado correctamente' });
-  
-         this.getEstado();
+      (response: any) => {
+        console.log('Estado civil insertado correctamente:', response);
+        // Agregar mensaje de éxito si es necesario
+        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Insertado con Exito', life: 3000 });
+        this.getEstado();
         this.closeModal('nuevo');
       },
-      error => {
-        console.error('Error al insertar el estadocivil:', error);
-        // this.showToast('error', 'Error Message', 'Error al insertar el municipio');
+      (error) => {
+        console.error('Error al insertar el estado civil:', error);
+        // Mostrar mensaje de error si es necesario
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se logro insertar', life: 3000 });
+      }
+    );
+  }
   
-       }
-     );
-   }
    
-   guardarCambios(): void {
+  guardarCambios(): void {
+    // Verificar que el campo requerido no esté vacío
+    if (!this.estadoSeleccionado.estad_Descripcion.trim()) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor ingrese la descripción del estado civil', life: 3000 });
+      return; // Detener la ejecución si falta el campo requerido
+    }
+  
+    // Continuar con la lógica si el campo requerido está lleno
     this.service.actualizarCivil(this.estadoSeleccionado).subscribe(
-      (response) => {
-        console.log('estadocivil actualizado correctamente:', response);
-        // this.showToast('success', 'Success Message', 'Municipio actualizado correctamente');
+      (response: any) => {
+        console.log('Estado civil actualizado correctamente:', response);
+        // Agregar mensaje de éxito si es necesario
+        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Editado con Exito', life: 3000 });
         this.getEstado();
         this.closeModal('editar');
       },
       (error) => {
-        console.error('Error al actualizar el estadocivil:', error);
-        // this.showToast('error', 'Error Message', 'Error al actualizar el municipio');
+        console.error('Error al actualizar el estado civil:', error);
+        // Mostrar mensaje de error si es necesario
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se logro Editar', life: 3000 });
       }
     );
   }
+  
   // editDepartamento(depto: EstadosCivilesViewModel): void {
   //   this.estadoSeleccionado = depto;
   //   this.editModal = true;
@@ -210,7 +232,8 @@ export class EstadoCivilListadoComponent implements OnInit {
     TableModule,
     ButtonModule,
     InputTextModule,
-    DialogModule
+    DialogModule,
+    ToastModule
   ],
   declarations: [EstadoCivilListadoComponent]
 })

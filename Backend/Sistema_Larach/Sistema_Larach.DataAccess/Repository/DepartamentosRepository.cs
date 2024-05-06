@@ -77,6 +77,7 @@ namespace Sistema_Larach.DataAccess.Repository
                 parametro.Add("@Depar_Descripcion", item.Depar_Descripcion);
                 parametro.Add("@Depa_UsuarioModificacion", 1);
                 parametro.Add("@Depa_FechaModificacion", DateTime.Now);
+                parametro.Add("@Depar_Estado", true);
                 var result = db.Execute(sql, parametro, commandType: CommandType.StoredProcedure);
 
                 return new RequestStatus { CodeStatus = result, MessageStatus = "" };

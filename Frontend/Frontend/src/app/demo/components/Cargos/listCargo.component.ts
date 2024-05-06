@@ -11,10 +11,12 @@ import { DialogModule } from 'primeng/dialog';
 import { CargosServiceService } from '../../api/Services/cargos-service.service';
 import { MensajeViewModel } from '../../api/Models/MensajeViewModel';
 import { ToastModule } from 'primeng/toast'; 
+import { ConfirmationService, MessageService } from 'primeng/api';
 @Component({
   selector: 'app-list',
   templateUrl: './listCargo.component.html',
-  styleUrls: ['./listCargo.component.css']
+  styleUrls: ['./listCargo.component.css'],
+  providers: [MessageService]
 })
 export class CargosListadoComponent implements OnInit {
   cargo!: CargosViewModel[];
@@ -33,8 +35,9 @@ export class CargosListadoComponent implements OnInit {
     cargo_Estado: null, 
     usuarioCreacion: '', 
     usuarioModificacion: '' 
+
 };
-  constructor(private service: CargosServiceService, private router: Router) {}
+  constructor(private service: CargosServiceService, private router: Router,   private messageService: MessageService) {}
 
   ngOnInit(): void {
     this.getCargo();
@@ -54,7 +57,9 @@ onGlobalFilter(event: any): void {
     );
   });
 }
-
+showToast(severity: string, summary: string, detail: string): void {
+  this.messageService.add({ severity: severity, summary: summary, detail: detail });
+}
 
   getCargo(): void {
     this.service.getCargo().subscribe(
@@ -88,18 +93,18 @@ onGlobalFilter(event: any): void {
                 console.log('Municipio eliminado exitosamente', response);
   
                 // Añadimos un mensaje de éxito aquí para verificar si se ejecuta
-                // this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Municipio eliminado correctamente' });
+                this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Eliminado con Exito', life: 3000 });
   
                 this.getCargo();
                 this.cargoSeleccionadoId = '';
             },
             (error) => {
-              // this.messageService.add({ severity: 'Error', summary: 'Danger Message', detail: 'El Municipio no se eliminado correctamente' });
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se logro Eliminar', life: 3000 });
                 this.cargoSeleccionadoId = '';
             }
         );
     } else {
-        console.error('ID del municipio seleccionado está vacío');
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se logro obtener el Id de municipio', life: 3000 });
     }
     this.showDeleteConfirmation = false;
   }
@@ -153,36 +158,49 @@ onGlobalFilter(event: any): void {
   }
 
   guardarNuevocategoria(): void {
+    // Verificar que los campos requeridos no estén vacíos
+    if (!this.cargoSeleccionado.cargo_Descripcion.trim()) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor ingrese la descripción del cargo', life: 3000 });
+      return; // Detener la ejecución si falta la descripción
+    }
+  
+    // Continuar con la lógica si los campos requeridos están llenos
     this.service.insertarCargo(this.cargoSeleccionado).subscribe(
-       (response: any) => {
-        console.log('Municipio insertado correctamente:', response);
-  
-        // this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Municipio insertado correctamente' });
-  
-         this.getCargo();
+      (response: any) => {
+        console.log('Cargo insertado correctamente:', response);
+        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Insertado con Exito', life: 3000 });
+        this.getCargo();
         this.closeModal('nuevo');
       },
       error => {
-        console.error('Error al insertar el municipio:', error);
-        // this.showToast('error', 'Error Message', 'Error al insertar el municipio');
+        console.error('Error al insertar el Cargo:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se logro insertar', life: 3000 });
+      }
+    );
+  }
   
-       }
-     );
-   }
-   guardarCambios(): void {
+  guardarCambios(): void {
+    // Verificar que los campos requeridos no estén vacíos
+    if (!this.cargoSeleccionado.cargo_Descripcion.trim()) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor ingrese la descripción del cargo', life: 3000 });
+      return; // Detener la ejecución si falta la descripción
+    }
+  
+    // Continuar con la lógica si los campos requeridos están llenos
     this.service.actualizarCargo(this.cargoSeleccionado).subscribe(
-      (response) => {
-        console.log('Municipio actualizado correctamente:', response);
-        // this.showToast('success', 'Success Message', 'Municipio actualizado correctamente');
+      (response: any) => {
+        console.log('Cargo actualizado correctamente:', response);
+        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Editado con Exito', life: 3000 });
         this.getCargo();
         this.closeModal('editar');
       },
       (error) => {
-        console.error('Error al actualizar el municipio:', error);
-        // this.showToast('error', 'Error Message', 'Error al actualizar el municipio');
+        console.error('Error al actualizar el Cargo:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se logro Editar', life: 3000 });
       }
     );
   }
+  
 
   // editDepartamento(depto: CargosViewModel): void {
   //   this.cargoSeleccionado = depto;
@@ -213,8 +231,8 @@ onGlobalFilter(event: any): void {
     ButtonModule,
     InputTextModule,
     DialogModule,
-    ToastModule 
+    ToastModule // Agrega ToastModule aquí
   ],
   declarations: [CargosListadoComponent]
 })
-export class DepartamentosListadoModule {}
+export class CargoListadoModule {}
