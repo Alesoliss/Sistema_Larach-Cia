@@ -10,25 +10,34 @@ import { map } from 'rxjs';
 export class MetodopagoServiceService {
 
   constructor(private http: HttpClient) { }
-  Url = 'https://localhost:44300/Listado';
+  Url = 'https://localhost:44300/API/MetodosPago/Listado';
+  private baseUrl = 'https://localhost:44300/API/MetodosPago';
 
-  getMetodoPago (){
-    return this.http.get<MetodosPagoViewModel[]>(this.Url);
-  }
-  EnviarMetodoPago(formData: any): Observable<any> {
-    return this.http.post<any>('API/MetodoPago/Create/', formData).pipe(
+  
+  insertarmetodo(formData: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + '/Create/', formData).pipe(
       map(response => {
         return response;
       }),
     );
   }
-  getFill(codigo: string): Observable<Fill> {
-    return this.http.get<Fill>(`${'API/MetodoPago/Fill/' + codigo}`);
+
+
+  actualizarmetodo(categoria: MetodosPagoViewModel): Observable<any> {
+    const url = `${this.baseUrl}/Actualizar`;
+    return this.http.put(url, categoria);
   }
-  EliminarMetodoPago(ID): Observable<any>{
-    return this.http.delete<any>(`${ 'API/MetodoPago/Delete/' + ID}`)
+  
+  getDetalles(codigo: number): Observable<Fill> {
+    return this.http.get<Fill>(`${'https://localhost:44300/API/MetodosPago/Detalles/' + codigo}`);
   }
-  ActualizarMetodoPago(formData){
-    return this.http.put( 'API/MetodoPago/Edit/', formData)
+
+  eliminarmetodo(categoriaId: number): Observable<any> {
+    const url = `${this.baseUrl}/Eliminar/${categoriaId}`;
+    return this.http.delete(url);
   }
+  getMetodoPago (){
+    return this.http.get<MetodosPagoViewModel[]>(this.Url);
+  }
+  
 }

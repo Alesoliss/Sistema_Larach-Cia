@@ -3,7 +3,7 @@
       <div class="card">
           <h5>Departamentos</h5>
           <div class="flex justify-content-start mb-3">
-            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-info mr-2" (click)="openModal()"></button>
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-info mr-2" (click)="openModal('nuevo')"></button>
         </div>
           
           <p-table [value]="departamento" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
@@ -44,9 +44,9 @@
                       <td>{{depto.depar_Descripcion}}</td>
                       <td style="align-items: center; text-align: center;">
                         <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info mr-2"
-                        (click)="editDepartamento(depto)">Editar</button>
+                        (click)="openModal('editar', depto)">Editar</button>
                         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2"
-                        (click)="deleteDepartamento(depto)">Eliminar</button>
+                        (click)="eliminarcategoria(depto.depar_Id)">Eliminar</button>
                         <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-warning"
                         (click)="showDetails(depto)">Detalles</button>
                       </td>
@@ -66,101 +66,100 @@
       </div>
   </div>
 </div>
-<!-- 
 
-<p-dialog [(visible)]="showModal" [modal]="true" [style]="{ width: '450px', 'margin': '20px auto' }">
-  <ng-template pTemplate="header">
-      <h5>Nuevo Departamento</h5>
-  </ng-template>
-  <ng-template pTemplate="content" class="text-center">
-    <form>
-      <div class="field mb-4">
-          <label for="codigo" class="block text-left">Código</label>
-          <input type="text" pInputText id="codigo" [(ngModel)]="nuevoDepartamento.codigo" required autofocus class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300" />
-          <small class="text-red-500 block mt-1" *ngIf="submitted && !nuevoDepartamento.codigo">El código es requerido.</small>
-      </div>
-      <div class="field mb-4">
-          <label for="descripcion" class="block text-left">Descripción</label>
-          <input type="text" pInputText id="descripcion" [(ngModel)]="nuevoDepartamento.descripcion" required class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300" />
-          <small class="text-red-500 block mt-1" *ngIf="submitted && !nuevoDepartamento.descripcion">La descripción es requerida.</small>
-      </div>
-    </form>
+<p-dialog [(visible)]="showModal" header="Nuevo Departamento" [modal]="true" [style]="{ width: '50%' }">
+    <ng-template pTemplate="content">
+      
+        <form class="p-grid p-fluid">
+            <div class="p-col-6" style="display: flex;">
+                <div style="flex: 1;">
+                    <label for="new-Departamento-id" class="p-d-block"> codigo</label>
+                    <input type="text" id="new-Departamento-id" name="new-Departamento-id" [(ngModel)]="departamentoSeleccionado.depar_Id" class="p-inputtext" style="width: 100%; padding: 0.5rem;" />
+                </div>
+            </div>
+            <div class="p-col-6" style="display: flex;">
+              
+                <div style="flex: 1;">
+                    <label for="new-Departamento-id" class="p-d-block"> departamento</label>
+                    <input type="text" id="new-Departamento-descripcion" name="new-Departamento-descripcion" [(ngModel)]="departamentoSeleccionado.depar_Descripcion" class="p-inputtext" style="width: 100%; padding: 0.5rem;" />
+                </div>
+            </div>
+           
+        </form>      
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <!-- Botones del pie de página -->
+        <button style="color: #0464B4;" pButton type="button" label="Cancelar" class="p-button-text" (click)="closeModal('nuevo')"></button>
+        <button pButton type="button" label="Guardar" class="p-button-danger" (click)="guardarNuevodepar()"></button>
+    </ng-template>
+</p-dialog>
 
-  </ng-template>
-  <ng-template pTemplate="footer">
-    <button pButton type="button" label="Cancelar" (click)="editModal = false"></button>
-    <button pButton type="button" label="Guardar" class="p-button-success" (click)="guardarCambios()"></button>
-</ng-template>
+
+<!-- Modal para editar categoría
+<p-dialog [(visible)]="editModal" [modal]="true" [style]="{ width: '50%' }">
+    <ng-template pTemplate="header">
+        <h5>Editar Categoría</h5>
+    </ng-template>
+    <ng-template pTemplate="content">
+        <!-- Contenido del formulario de edición 
+        <form>
+            <div class="p-field">
+                <label for="edit-categoria-id">ID</label>
+                <input type="text"  id="edit-categoria-id" [(ngModel)]="categoriaSeleccionada.categ_Id" hidden/>
+            </div>
+            <div class="p-field">
+                <label for="edit-categoria-descripcion">Descripción</label>
+                <input type="text" id="edit-categoria-descripcion" [(ngModel)]="categoriaSeleccionada.categ_Descripcion" />
+            </div>
+            <div class="p-field">
+                <label for="edit-categoria-imagen">URL de la Imagen</label>
+                <input type="text" id="edit-categoria-imagen" [(ngModel)]="categoriaSeleccionada.cate_ImagenUrl" />
+            </div>
+        </form>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <!-- Botones del pie de página 
+        <button pButton type="button" label="Cancelar" (click)="editModal = false"></button>
+        <button pButton type="button" label="Guardar" class="p-button-success" (click)="guardarCambios()"></button>
+    </ng-template>
 </p-dialog> -->
 
-
-
-
-
-
-<p-dialog [(visible)]="showModal" [modal]="true" [style]="{ width: '450px', 'margin': '20px auto' }">
-  <ng-template pTemplate="header">
-      <h5>Editar Departamento</h5>
-  </ng-template>
-  <ng-template pTemplate="content">
-      <!-- Contenido del formulario de edición -->
-      <form>
-          <div class="p-field">
-              <label for="edit-codigo">Código</label>
-              <input type="text" id="edit-codigo" [(ngModel)]="departamentoSeleccionado.codigo" />
-          </div>
-          <div class="p-field">
-              <label for="edit-descripcion">Descripción</label>
-              <input type="text" id="edit-descripcion" [(ngModel)]="departamentoSeleccionado.descripcion" />
-          </div>
-      </form>
-  </ng-template>
-  <ng-template pTemplate="footer">
-      <!-- Botones del pie de página -->
-      <button pButton type="button" label="Cancelar" (click)="editModal = false"></button>
-      <button pButton type="button" label="Guardar" class="p-button-success" (click)="guardarCambios()"></button>
-  </ng-template>
-</p-dialog>
-
-
-
-
-<!-- Modal para editar departamento -->
-<p-dialog [(visible)]="editModal" [modal]="true" [style]="{ width: '50%' }">
-  <ng-template pTemplate="header">
-      <h5>Editar Departamento</h5>
-  </ng-template>
-  <ng-template pTemplate="content">
-      <!-- Contenido del formulario de edición -->
-      <form>
-          <div class="p-field">
-              <label for="edit-codigo">Código</label>
-              <input type="text" id="edit-codigo" [(ngModel)]="departamentoSeleccionado.codigo" />
-          </div>
-          <div class="p-field">
-              <label for="edit-descripcion">Descripción</label>
-              <input type="text" id="edit-descripcion" [(ngModel)]="departamentoSeleccionado.descripcion" />
-          </div>
-      </form>
-  </ng-template>
-  <ng-template pTemplate="footer">
-      <!-- Botones del pie de página -->
-      <button pButton type="button" label="Cancelar" (click)="editModal = false"></button>
-      <button pButton type="button" label="Guardar" class="p-button-success" (click)="guardarCambios()"></button>
-  </ng-template>
-</p-dialog>
-
 <!-- Modal para confirmar eliminación -->
-<p-dialog [(visible)]="deleteModal" header="Confirmar Eliminación" [modal]="true" [style]="{width: '50%'}">
-  <ng-template pTemplate="content">
-      ¿Estás seguro que deseas eliminar este departamento?
-  </ng-template>
-  <ng-template pTemplate="footer">
-      <button pButton type="button" label="No" class="p-button-text" (click)="deleteModal = false"></button>
-      <button pButton type="button" label="Sí" class="p-button-text" (click)="eliminarDepartamento()"></button>
-  </ng-template>
+<p-dialog [(visible)]="showDeleteConfirmation" header="Confirmar Eliminación" [modal]="true" [style]="{width: '50%'}">
+    <ng-template pTemplate="content">
+        ¿Estás seguro que deseas eliminar este municipio?
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="No" class="p-button-text" (click)="cancelarEliminacion()"></button>
+        <button pButton type="button" label="Sí" class="p-button-text" (click)="confirmarEliminacion()"></button>
+    </ng-template>
 </p-dialog>
 
-
-
-
+<p-dialog [(visible)]="editModal" [modal]="true" [style]="{ width: '50%' }">
+    <ng-template pTemplate="header">
+        <h5>Editar Cargo </h5>
+    </ng-template>
+    <ng-template pTemplate="content">
+        <!-- Contenido del formulario de edición -->
+        <form class="p-grid p-fluid">
+            <div class="p-col-6">
+                <div style="flex: 1;">
+                    <label for="new-Departamento-id" class="p-d-block"> codigo</label>
+                    <input type="text" id="new-Departamento-id" name="new-Departamento-id" [(ngModel)]="departamentoSeleccionado.depar_Id" class="p-inputtext" style="width: 100%; padding: 0.5rem;" />
+                </div>
+            </div>
+            <div class="p-col-6">
+                <div style="flex: 1;">
+                    <label for="new-Departamento-id" class="p-d-block"> departamento</label>
+                    <input type="text" id="new-Departamento-descripcion" name="new-Departamento-descripcion" [(ngModel)]="departamentoSeleccionado.depar_Descripcion" class="p-inputtext" style="width: 100%; padding: 0.5rem;" />
+                </div>
+            </div>
+          </form>
+                
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <!-- Botones del pie de página -->
+        <button pButton type="button" label="Cancelar" (click)="closeModal('editar')"></button>
+        <button pButton type="button" label="Guardar" class="p-button-success" (click)="guardarCambios()"></button>
+    </ng-template>
+</p-dialog>

@@ -97,7 +97,7 @@ namespace Sistema_Larach.DataAccess.Repository
                 return result;
             }
         }
-        public IEnumerable<tbEstadosCiviles> FindEstado(string codigo)
+        public IEnumerable<tbEstadosCiviles> FindEstado(int codigo)
         {
             string sql = $"[Gral].[sp_EstadosCiviles_Buscar] '{codigo}'";
             List<tbEstadosCiviles> result = new List<tbEstadosCiviles>();

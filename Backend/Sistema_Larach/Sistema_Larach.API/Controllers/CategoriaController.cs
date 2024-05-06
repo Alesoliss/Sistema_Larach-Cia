@@ -34,5 +34,79 @@ namespace Sistema_Larach.API.Controllers
 
             return Ok(listado);
         }
+
+        [HttpPost("Create")]
+        public IActionResult Insert(CategoriasViewModel item)
+        {
+            var model = _mapper.Map<tbCategorias>(item);
+            var modelo = new tbCategorias()
+            {
+                Categ_Descripcion = item.Categ_Descripcion,
+                Cate_ImagenUrl = item.Cate_ImagenUrl,
+                Categ_UsuarioCreacion = 1,
+                Categ_FechaCreacion = DateTime.Now,
+                Categ_Estado = true
+
+            };
+            var list = _generalServices.InsertarCate(modelo);
+            if (list.Success)
+            {
+                return Ok(list);
+            }
+            else
+            {
+                return Problem(list.Message);
+            }
+        }
+
+        [HttpPut("Actualizar")]
+        public IActionResult Update(CategoriasViewModel item)
+        {
+
+            var model = _mapper.Map<tbCategorias>(item);
+            var modelo = new tbCategorias()
+            {
+                Categ_Id = item.Categ_Id,
+                Categ_Descripcion = item.Categ_Descripcion,
+                Cate_ImagenUrl = item.Cate_ImagenUrl,
+                Categ_UsuarioModificacion = 1,
+                Categ_FechaModificacion = DateTime.Now,
+                Categ_Estado = true
+
+            };
+            var list = _generalServices.ActualizarCate(modelo);
+            if (list.Success)
+            {
+                return Ok(list);
+            }
+            else
+            {
+                return Problem(list.Message);
+            }
+        }
+        [HttpGet("Detalles")]
+        public IActionResult Details(int Categ_Id)
+        {
+            var list = _generalServices.BuscarCargo(Categ_Id);
+
+            return Ok(list);
+        }
+
+        [HttpDelete("Eliminar/{Categ_Id}")]
+        public IActionResult Delete(int Categ_Id)
+        {
+            var result = new ServiceResult();
+
+            var list = _generalServices.EliminarCate(Categ_Id);
+            if (list.Success)
+            {
+                return Ok(list);
+            }
+            else
+            {
+                return Problem(list.Message);
+            }
+
+        }
     }
 }

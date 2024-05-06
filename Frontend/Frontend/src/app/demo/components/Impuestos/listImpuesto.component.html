@@ -3,7 +3,7 @@
         <div class="card">
             <h5>Impuestos</h5>
             <div class="flex justify-content-start mb-3">
-                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-info mr-2" (click)="openModal()"></button>
+                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-info mr-2" (click)="openModal('nuevo')"></button>
             </div>
             
             <p-table [value]="impuesto" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
@@ -46,11 +46,11 @@
                         <td style="align-items: center; text-align: center;">
 
                             <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info mr-2"
-                                (click)="editImpuesto(impuesto)">Editar</button>
+                            (click)="openModal('editar', impuesto)">Editar</button>
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2"
-                                (click)="deleteImpuesto(impuesto)">Detalles</button>
+                                >Detalles</button>
                                 <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-warning"
-                                (click)="showDetails(impuesto)">Eliminar</button>
+                                (click)="eliminarcategoria(impuesto.impue_Id)">Eliminar</button>
                         </td>
                     </tr>
                 </ng-template>
@@ -68,39 +68,87 @@
         </div>
     </div>
 </div>
-  
-<!-- Modal para editar impuesto -->
+ 
+<p-dialog [(visible)]="showModal" header="Nuevo Impuesto" [modal]="true" [style]="{ width: '50%' }">
+    <ng-template pTemplate="content">
+      
+        <form class="p-grid p-fluid">
+            <div class="p-col-6" style="display: flex;">
+                <div style="flex: 1;">
+                    <label for="new-Impuesto-id" class="p-d-block"> Impuesto </label>
+                    <input type="text" id="new-Impuesto-descripcion" name="new-Impuesto-descripcion" [(ngModel)]="impuestoSeleccionado.impue_Descripcion" class="p-inputtext" style="width: 100%; padding: 0.5rem;" />
+                </div>
+            </div>
+           
+        </form>      
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <!-- Botones del pie de página -->
+        <button style="color: #0464B4;" pButton type="button" label="Cancelar" class="p-button-text" (click)="closeModal('nuevo')"></button>
+        <button pButton type="button" label="Guardar" class="p-button-danger" (click)="guardarNuevocategoria()"></button>
+    </ng-template>
+</p-dialog>
+
+
+<!-- Modal para editar categoría
 <p-dialog [(visible)]="editModal" [modal]="true" [style]="{ width: '50%' }">
     <ng-template pTemplate="header">
-        <h5>Editar Impuesto</h5>
+        <h5>Editar Categoría</h5>
     </ng-template>
     <ng-template pTemplate="content">
-        <!-- Contenido del formulario de edición -->
+        <!-- Contenido del formulario de edición 
         <form>
             <div class="p-field">
-                <label for="edit-impuesto-id">ID</label>
-                <input type="text" id="edit-impuesto-id" [(ngModel)]="estadoSeleccionado.impue_Id" />
+                <label for="edit-categoria-id">ID</label>
+                <input type="text"  id="edit-categoria-id" [(ngModel)]="categoriaSeleccionada.categ_Id" hidden/>
             </div>
             <div class="p-field">
-                <label for="edit-impuesto-descripcion">Descripción</label>
-                <input type="text" id="edit-impuesto-descripcion" [(ngModel)]="estadoSeleccionado.impue_Descripcion" />
+                <label for="edit-categoria-descripcion">Descripción</label>
+                <input type="text" id="edit-categoria-descripcion" [(ngModel)]="categoriaSeleccionada.categ_Descripcion" />
+            </div>
+            <div class="p-field">
+                <label for="edit-categoria-imagen">URL de la Imagen</label>
+                <input type="text" id="edit-categoria-imagen" [(ngModel)]="categoriaSeleccionada.cate_ImagenUrl" />
             </div>
         </form>
     </ng-template>
     <ng-template pTemplate="footer">
-        <!-- Botones del pie de página -->
+        <!-- Botones del pie de página 
         <button pButton type="button" label="Cancelar" (click)="editModal = false"></button>
         <button pButton type="button" label="Guardar" class="p-button-success" (click)="guardarCambios()"></button>
     </ng-template>
-</p-dialog>
-  
+</p-dialog> -->
+
 <!-- Modal para confirmar eliminación -->
-<p-dialog [(visible)]="deleteModal" header="Confirmar Eliminación" [modal]="true" [style]="{width: '50%'}">
+<p-dialog [(visible)]="showDeleteConfirmation" header="Confirmar Eliminación" [modal]="true" [style]="{width: '50%'}">
     <ng-template pTemplate="content">
-        ¿Estás seguro que deseas eliminar este impuesto?
+        ¿Estás seguro que deseas eliminar este municipio?
     </ng-template>
     <ng-template pTemplate="footer">
-        <button pButton type="button" label="No" class="p-button-text" (click)="deleteModal = false"></button>
-        <button pButton type="button" label="Sí" class="p-button-text" (click)="eliminarImpuesto()"></button>
+        <button pButton type="button" label="No" class="p-button-text" (click)="cancelarEliminacion()"></button>
+        <button pButton type="button" label="Sí" class="p-button-text" (click)="confirmarEliminacion()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="editModal" [modal]="true" [style]="{ width: '50%' }">
+    <ng-template pTemplate="header">
+        <h5>Editar Impuesto </h5>
+    </ng-template>
+    <ng-template pTemplate="content">
+        <!-- Contenido del formulario de edición -->
+        <form class="p-grid p-fluid">
+            <div class="p-col-6">
+                <div style="flex: 1;">
+                    <label for="new-Impuesto-id" class="p-d-block"> Impuesto</label>
+                    <input type="text" id="new-Impuesto-descripcion" name="new-Impuesto-descripcion" [(ngModel)]="impuestoSeleccionado.impue_Descripcion" class="p-inputtext" style="width: 100%; padding: 0.5rem;" />
+                </div>
+            </div>
+          </form>
+                
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <!-- Botones del pie de página -->
+        <button pButton type="button" label="Cancelar" (click)="closeModal('editar')"></button>
+        <button pButton type="button" label="Guardar" class="p-button-success" (click)="guardarCambios()"></button>
     </ng-template>
 </p-dialog>

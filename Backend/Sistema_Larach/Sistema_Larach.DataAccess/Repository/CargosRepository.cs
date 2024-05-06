@@ -45,8 +45,8 @@ namespace Sistema_Larach.DataAccess.Repository
             {
                 var parametro = new DynamicParameters();
                 parametro.Add("@Cargo_Descripcion", item.Cargo_Descripcion);
-                parametro.Add("@Cargo_UsuarioCreacion", item.Cargo_UsuarioCreacion);
-                parametro.Add("@Cargo_FechaCreacion", item.Cargo_FechaCreacion);
+                parametro.Add("@Cargo_UsuarioCreacion", 1);
+                parametro.Add("@Cargo_FechaCreacion", DateTime.Now);
                 var result = db.Execute(sql, parametro, commandType: CommandType.StoredProcedure);
 
                 return new RequestStatus { CodeStatus = result, MessageStatus = "" };
@@ -66,8 +66,8 @@ namespace Sistema_Larach.DataAccess.Repository
                 var parametro = new DynamicParameters();
                 parametro.Add("@Cargo_Id", item.Cargo_Id);
                 parametro.Add("@Cargo_Descripcion", item.Cargo_Descripcion);
-                parametro.Add("@Cargo_UsuarioModificacion", item.Cargo_UsuarioModificacion);
-                parametro.Add("@Cargo_FechaCreacion", item.Cargo_FechaCreacion);
+                parametro.Add("@Cargo_UsuarioModificacion", 1);
+                parametro.Add("@Cargo_FechaModificacion", DateTime.Now);
                 var result = db.Execute(sql, parametro, commandType: CommandType.StoredProcedure);
 
                 return new RequestStatus { CodeStatus = result, MessageStatus = "" };
@@ -84,7 +84,7 @@ namespace Sistema_Larach.DataAccess.Repository
                 return result;
             }
         }
-        public IEnumerable<tbCargos> FindDepto(string codigo)
+        public IEnumerable<tbCargos> Findcargo(int codigo)
         {
             string sql = $"[Gral].[sp_Cargos_Buscar] '{codigo}'";
             List<tbCargos> result = new List<tbCargos>();

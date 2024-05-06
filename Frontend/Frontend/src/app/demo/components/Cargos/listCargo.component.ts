@@ -9,7 +9,8 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
 import { CargosServiceService } from '../../api/Services/cargos-service.service';
-
+import { MensajeViewModel } from '../../api/Models/MensajeViewModel';
+import { ToastModule } from 'primeng/toast'; 
 @Component({
   selector: 'app-list',
   templateUrl: './listCargo.component.html',
@@ -19,6 +20,8 @@ export class CargosListadoComponent implements OnInit {
   cargo!: CargosViewModel[];
   showModal: boolean = false;
   editModal: boolean = false;
+  showDeleteConfirmation: boolean = false;
+  MensajeViewModel!: MensajeViewModel[];
   deleteModal: boolean = false;
    cargoSeleccionado: CargosViewModel = { 
     cargo_Id: 0, 
@@ -68,32 +71,138 @@ onGlobalFilter(event: any): void {
   clear(): void {
     this.getCargo();
   }
+  cargoSeleccionadoId: string = '';
 
-  openModal(): void {
-    this.showModal = true;
+  eliminarcategoria(municipioId: number): void {
+      console.log('ID:', municipioId);
+      // Almacena el ID del municipio seleccionado
+      this.cargoSeleccionadoId = municipioId.toString();
+      // Muestra el modal de confirmación
+      this.showDeleteConfirmation = true;
   }
 
-  closeModal(): void {
-    this.showModal = false;
+  confirmarEliminacion(): void {
+    if (this.cargoSeleccionadoId) {
+        this.service.eliminarCargo(parseInt(this.cargoSeleccionadoId)).subscribe(
+            (response) => {
+                console.log('Municipio eliminado exitosamente', response);
+  
+                // Añadimos un mensaje de éxito aquí para verificar si se ejecuta
+                // this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Municipio eliminado correctamente' });
+  
+                this.getCargo();
+                this.cargoSeleccionadoId = '';
+            },
+            (error) => {
+              // this.messageService.add({ severity: 'Error', summary: 'Danger Message', detail: 'El Municipio no se eliminado correctamente' });
+                this.cargoSeleccionadoId = '';
+            }
+        );
+    } else {
+        console.error('ID del municipio seleccionado está vacío');
+    }
+    this.showDeleteConfirmation = false;
   }
 
-  editDepartamento(depto: CargosViewModel): void {
-    this.cargoSeleccionado = depto;
-    this.editModal = true;
+  cancelarEliminacion(): void {
+    this.showDeleteConfirmation = false;
+    this.cargoSeleccionadoId = '';
+  }
+    //Funcionan como regex
+    ValidarNumeros(event: KeyboardEvent) {
+      if (!/[0-9]/.test(event.key) && event.key !== 'Backspace' && event.key !== 'Tab') {
+          event.preventDefault();
+      }
+  }
+  validarTexto(event: KeyboardEvent) {
+
+      if (!/^[a-zA-Z\s]+$/.test(event.key) && event.key !== 'Backspace' && event.key !== 'Tab' && event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
+          event.preventDefault();
+      }
+  }
+  openModal(tipo: string, categoria?: CargosViewModel): void {
+    if (tipo === 'nuevo') {
+        // Limpiar el objeto impuestoSeleccionado antes de abrir el modal de inserción
+        this.cargoSeleccionado = {
+            cargo_Id: 0,
+            cargo_Descripcion: '',
+            cargo_UsuarioCreacion: 0,
+            cargo_FechaCreacion: new Date(),
+            cargo_UsuarioModificacion: null,
+            cargo_FechaModificacion: null,
+            usuarioCreacion: '',
+            usuarioModificacion: ''
+        };
+        this.showModal = true;
+    } else if (tipo === 'editar') {
+        this.cargoSeleccionado = categoria!;
+        this.editModal = true;
+    } else if (tipo === 'eliminar') {
+        this.deleteModal = true;
+    }
   }
 
-  guardarCambios(): void {
-    this.editModal = false;
+  closeModal(tipo: string): void {
+    if (tipo === 'nuevo') {
+      this.showModal = false;
+    } else if (tipo === 'editar') {
+      this.editModal = false;
+    } else if (tipo === 'eliminar') {
+      this.deleteModal = false;
+    }
   }
 
-  deleteDepartamento(depto: CargosViewModel): void {
-    this.cargoSeleccionado = depto;
-    this.deleteModal = true;
+  guardarNuevocategoria(): void {
+    this.service.insertarCargo(this.cargoSeleccionado).subscribe(
+       (response: any) => {
+        console.log('Municipio insertado correctamente:', response);
+  
+        // this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Municipio insertado correctamente' });
+  
+         this.getCargo();
+        this.closeModal('nuevo');
+      },
+      error => {
+        console.error('Error al insertar el municipio:', error);
+        // this.showToast('error', 'Error Message', 'Error al insertar el municipio');
+  
+       }
+     );
+   }
+   guardarCambios(): void {
+    this.service.actualizarCargo(this.cargoSeleccionado).subscribe(
+      (response) => {
+        console.log('Municipio actualizado correctamente:', response);
+        // this.showToast('success', 'Success Message', 'Municipio actualizado correctamente');
+        this.getCargo();
+        this.closeModal('editar');
+      },
+      (error) => {
+        console.error('Error al actualizar el municipio:', error);
+        // this.showToast('error', 'Error Message', 'Error al actualizar el municipio');
+      }
+    );
   }
 
-  eliminarDepartamento(): void {
-    this.deleteModal = false;
-  }
+  // editDepartamento(depto: CargosViewModel): void {
+  //   this.cargoSeleccionado = depto;
+  //   this.editModal = true;
+  // }
+
+  // guardarCambios(): void {
+  //   this.editModal = false;
+  // }
+
+  // deleteDepartamento(depto: CargosViewModel): void {
+  //   this.cargoSeleccionado = depto;
+  //   this.deleteModal = true;
+  // }
+
+  // eliminarDepartamento(): void {
+  //   this.deleteModal = false;
+  // }
+
+
 }
 
 @NgModule({
@@ -103,7 +212,8 @@ onGlobalFilter(event: any): void {
     TableModule,
     ButtonModule,
     InputTextModule,
-    DialogModule
+    DialogModule,
+    ToastModule 
   ],
   declarations: [CargosListadoComponent]
 })

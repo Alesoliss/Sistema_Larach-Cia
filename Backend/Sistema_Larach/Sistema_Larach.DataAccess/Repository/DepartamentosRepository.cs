@@ -45,8 +45,8 @@ namespace Sistema_Larach.DataAccess.Repository
                 var parametro = new DynamicParameters();
                 parametro.Add("@Depar_Id", item.Depar_Id);
                 parametro.Add("@Depar_Descripcion", item.Depar_Descripcion);
-                parametro.Add("@Depar_UsuarioCreacion", item.Depar_UsuarioCreacion);
-                parametro.Add("@Depar_FechaCreacion", item.Depar_FechaCreacion);
+                parametro.Add("@Depar_UsuarioCreacion", 1);
+                parametro.Add("@Depar_FechaCreacion", DateTime.Now);
                 var result = db.Execute(sql, parametro, commandType: CommandType.StoredProcedure);
 
                 return new RequestStatus { CodeStatus = result, MessageStatus = "" };
@@ -75,8 +75,8 @@ namespace Sistema_Larach.DataAccess.Repository
                 var parametro = new DynamicParameters();
                 parametro.Add("@Depar_Id", item.Depar_Id);
                 parametro.Add("@Depar_Descripcion", item.Depar_Descripcion);
-                parametro.Add("@Depa_UsuarioModificacion", item.Depar_UsuarioModificacion);
-                parametro.Add("@Depa_FechaModificacion", item.Depar_FechaModificacion);
+                parametro.Add("@Depa_UsuarioModificacion", 1);
+                parametro.Add("@Depa_FechaModificacion", DateTime.Now);
                 var result = db.Execute(sql, parametro, commandType: CommandType.StoredProcedure);
 
                 return new RequestStatus { CodeStatus = result, MessageStatus = "" };

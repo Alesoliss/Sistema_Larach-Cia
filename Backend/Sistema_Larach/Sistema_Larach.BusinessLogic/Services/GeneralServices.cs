@@ -199,6 +199,82 @@ namespace Sistema_Larach.BusinessLogic.Services
                 return result.Error(ex.Message);
             }
         }
+        public ServiceResult InsertarCargo(tbCargos item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _cargosRepository.Insert(item);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    return result.Error(lost);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        public ServiceResult EliminarCargo(int id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _cargosRepository.Eliminarcargo(id);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    return result.Error(lost);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        public ServiceResult ActualizarCargo(tbCargos item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _cargosRepository.Update(item);
+
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    return result.Error(lost);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+
+            }
+        }
+        public IEnumerable<tbCargos> BuscarCargos(int codigo)
+        {
+
+            try
+            {
+                return _cargosRepository.Findcargo(codigo);
+
+            }
+            catch
+            {
+                return Enumerable.Empty<tbCargos>();
+            }
+        }
+
 
         #endregion
 
@@ -217,6 +293,81 @@ namespace Sistema_Larach.BusinessLogic.Services
             catch (Exception ex)
             {
                 return result.Error(ex.Message);
+            }
+        }
+        public ServiceResult InsertarCate(tbCategorias item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _categoriasRepository.Insert(item);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    return result.Error(lost);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        public ServiceResult EliminarCate(int id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _categoriasRepository.Eliminarcategoria(id);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    return result.Error(lost);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        public ServiceResult ActualizarCate(tbCategorias item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _categoriasRepository.Update(item);
+
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    return result.Error(lost);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+
+            }
+        }
+        public IEnumerable<tbCategorias> BuscarCargo(int codigo)
+        {
+
+            try
+            {
+                return _categoriasRepository.FindCategoria(codigo);
+
+            }
+            catch
+            {
+                return Enumerable.Empty<tbCategorias>();
             }
         }
 
@@ -239,6 +390,81 @@ namespace Sistema_Larach.BusinessLogic.Services
                 return result.Error(ex.Message);
             }
         }
+        public ServiceResult Insertarcivil(tbEstadosCiviles item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _estadosCivilesRepository.Insert(item);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    return result.Error(lost);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        public ServiceResult Eliminarcivil(int id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _estadosCivilesRepository.EliminarEstadoCivil(id);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    return result.Error(lost);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        public ServiceResult Actualizarcivil(tbEstadosCiviles item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _estadosCivilesRepository.Update(item);
+
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    return result.Error(lost);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+
+            }
+        }
+        public IEnumerable<tbEstadosCiviles> Buscarcivil(int codigo)
+        {
+
+            try
+            {
+                return _estadosCivilesRepository.FindEstado(codigo);
+
+            }
+            catch
+            {
+                return Enumerable.Empty<tbEstadosCiviles>();
+            }
+        }
 
         #endregion
 
@@ -258,7 +484,81 @@ namespace Sistema_Larach.BusinessLogic.Services
                 return result.Error(ex.Message);
             }
         }
+        public ServiceResult InsertarImpuesto(tbImpuestos item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _impuestosRepository.Insert(item);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    return result.Error(lost);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        public ServiceResult EliminarImpuesto(int id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _impuestosRepository.EliminarImpuesto(id);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    return result.Error(lost);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        public ServiceResult ActualizarImpuesto(tbImpuestos item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _impuestosRepository.Update(item);
 
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    return result.Error(lost);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+
+            }
+        }
+        public IEnumerable<tbImpuestos> BuscarImpuesto(int codigo)
+        {
+
+            try
+            {
+                return _impuestosRepository.FindImpuesto(codigo);
+
+            }
+            catch
+            {
+                return Enumerable.Empty<tbImpuestos>();
+            }
+        }
         #endregion
 
 
@@ -276,6 +576,81 @@ namespace Sistema_Larach.BusinessLogic.Services
             catch (Exception ex)
             {
                 return result.Error(ex.Message);
+            }
+        }
+        public ServiceResult InsertarMetodo(tbMetodospago item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _metodosPagoRepository.Insert(item);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    return result.Error(lost);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        public ServiceResult EliminarMetodo(int id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _metodosPagoRepository.EliminarMetodoPago(id);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    return result.Error(lost);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        public ServiceResult ActualizarMetodo(tbMetodospago item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _metodosPagoRepository.Update(item);
+
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    return result.Error(lost);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+
+            }
+        }
+        public IEnumerable<tbMetodospago> BuscarMEtodo(int codigo)
+        {
+
+            try
+            {
+                return _metodosPagoRepository.FindMetodoPago(codigo);
+
+            }
+            catch
+            {
+                return Enumerable.Empty<tbMetodospago>();
             }
         }
 

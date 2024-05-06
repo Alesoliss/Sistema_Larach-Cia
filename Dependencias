@@ -1,3 +1,123 @@
 DB_Sistema_LarachYCia.mssql.somee.com
 alesol_SQLLogin_1
 alesol2024
+
+       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="input-boxes">
+            <div class="input-box">
+              <i class="fas fa-envelope"></i>
+              <input type="text" placeholder="Ingrese su Usuario" formControlName="usuario" required>
+            </div>
+            <div class="input-box">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Ingrese su Contraseña" formControlName="contra" required>
+            </div>
+            <div class="text"><a href="#">Mas Informacion</a></div>
+            <div class="button input-box">
+              <!-- <input type="submit" value="Submit"> -->
+              <button type="submit" pButton pRipple label="Iniciar Sesión" class="w-full p-3 text-xl"></button>
+            </div>
+            
+            <div class="text sign-up-text">Informacion con  <label for="flip"> Supervisores</label></div>
+          </div>
+        </form>(click)="irAPaginaPrincipal()"
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <title>Login and Registration Form in HTML & CSS | CodingLab</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+</head>
+<body>
+
+<div class="area">
+  <ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+</div>
+
+<div class="container">
+  <input type="checkbox" id="flip">
+  <div class="cover">
+    <div class="front">
+      <img src="https://www.yelu.hn/img/hn/d/1635441225-35-ferreteria-larach-y-cia.png" alt="">
+      <div class="text">
+        <span class="text-1">En un 2x3, todo de una vez <br> Larach y Cia</span>
+        <span class="text-2">#1 en Ferreteria y Economia</span>
+      </div>
+    </div>
+    <div class="back">
+      <!--<img class="backImg" src="images/backImg.jpg" alt="">-->
+      <div class="text">
+        <span class="text-1">Complete miles of journey <br> with one step</span>
+        <span class="text-2">Let's get started</span>
+      </div>
+    </div>
+  </div>
+  <div class="forms">
+    <div class="form-content">
+      <div class="login-form">
+        <div class="title">
+          <img src="../../../../assets/demo/images/access/logoletra.png" style="width: 200px;">
+        </div>
+        
+        <form [formGroup]="LoginForm" (ngSubmit)="onSubmit()">
+          <div class="input-boxes">
+            <div class="input-box">
+              <i class="fas fa-envelope"></i>
+              <input type="text" placeholder="Ingrese su Usuario" required>
+            </div>
+            <div class="input-box">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Ingrese su Contraseña" required>
+            </div>
+            <div class="text"><a href="#">Mas Informacion</a></div>
+            <div class="button input-box">
+              <!-- <input type="submit" value="Submit"> -->
+              <button class="botonEnviar"  type="submit">Ingresar</button>
+            </div>
+            
+            <div class="text sign-up-text">Informacion con  <label for="flip"> Supervisores</label></div>
+          </div>
+        </form>
+      </div>
+      <div class="signup-form">
+        <div class="title">Loguin</div>
+        <!-- <form action="#">
+          <div class="input-boxes">
+            <div class="input-box">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Enter your name" required>
+            </div>
+            <div class="input-box">
+              <i class="fas fa-envelope"></i>
+              <input type="text" placeholder="Enter your email" required>
+            </div>
+            <div class="input-box">
+              <i class="fas fa-lock"></i>
+              <input type="text" placeholder="Enter your password" required>
+            </div>
+            <div class="button input-box">
+              <input type="submit" value="Submit">
+            </div>
+            <div class="text sign-up-text">Already have an account? <label for="flip">Login now</label></div>
+          </div>
+        </form> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

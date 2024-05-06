@@ -44,9 +44,9 @@ namespace Sistema_Larach.DataAccess.Repository
             {
                 var parametro = new DynamicParameters();
                 parametro.Add("@Categ_Descripcion", item.Categ_Descripcion);
-                parametro.Add("@Categ_UsuarioCreacion", item.Categ_UsuarioCreacion);
-                parametro.Add("@Categ_FechaCreacion", item.Categ_FechaCreacion);
-                parametro.Add("@Categ_Estado", item.Categ_FechaCreacion);
+                parametro.Add("@Categ_UsuarioCreacion", 1);
+                parametro.Add("@Categ_FechaCreacion", DateTime.Now);
+                parametro.Add("@Categ_Estado", true);
                 parametro.Add("@Cate_ImagenUrl", item.Categ_FechaCreacion);
 
                 var result = db.Execute(sql, parametro, commandType: CommandType.StoredProcedure);
@@ -68,10 +68,10 @@ namespace Sistema_Larach.DataAccess.Repository
                 var parametro = new DynamicParameters();
                 parametro.Add("@Categ_Id", item.Categ_Id);
                 parametro.Add("@Categ_Descripcion", item.Categ_Descripcion);
-                parametro.Add("@Categ_UsuarioModificacion", item.Categ_UsuarioModificacion);
-                parametro.Add("@Categ_FechaModificacion", item.Categ_FechaModificacion);
-                parametro.Add("@Categ_Estado", item.Categ_FechaCreacion);
-                parametro.Add("@Cate_ImagenUrl", item.Categ_FechaCreacion);
+                parametro.Add("@Categ_UsuarioModificacion", 1);
+                parametro.Add("@Categ_FechaModificacion", DateTime.Now);
+                parametro.Add("@Categ_Estado", true);
+                parametro.Add("@Cate_ImagenUrl", item.Cate_ImagenUrl);
                 var result = db.Execute(sql, parametro, commandType: CommandType.StoredProcedure);
 
                 return new RequestStatus { CodeStatus = result, MessageStatus = "" };

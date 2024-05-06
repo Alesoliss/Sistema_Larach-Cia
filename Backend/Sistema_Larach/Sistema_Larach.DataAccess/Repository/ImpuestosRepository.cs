@@ -47,7 +47,7 @@ namespace Sistema_Larach.DataAccess.Repository
                 parametro.Add("@Impue_Descripcion", item.Impue_Descripcion);
                 parametro.Add("@Impue_UsuarioCreacion", 1);
                 parametro.Add("@Impue_FechaCreacion", DateTime.Now);
-                parametro.Add("@Impue_Estado", 1);
+                parametro.Add("@Impue_Estado", true);
 
                 var result = db.Execute(sql, parametro, commandType: CommandType.StoredProcedure);
 
@@ -70,7 +70,7 @@ namespace Sistema_Larach.DataAccess.Repository
                 parametro.Add("@Impue_Descripcion", item.Impue_Descripcion);
                 parametro.Add("@Impue_UsuarioModificacion", 1);
                 parametro.Add("@Impue_FechaModificacion", DateTime.Now);
-                parametro.Add("@Impue_Estado", 1);
+                parametro.Add("@Impue_Estado", true);
                 var result = db.Execute(sql, parametro, commandType: CommandType.StoredProcedure);
 
                 return new RequestStatus { CodeStatus = result, MessageStatus = "" };

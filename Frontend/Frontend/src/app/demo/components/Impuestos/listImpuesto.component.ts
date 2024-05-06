@@ -8,7 +8,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
 import { ImpuestosViewModel } from '../../api/Models/ImpuestosViewModel';
 import { ImpuestoServiceService } from '../../api/Services/impuestos-service.service';
-
+import { MensajeViewModel } from '../../api/Models/MensajeViewModel';
+import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-list',
   templateUrl: './listImpuesto.component.html',
@@ -18,6 +19,8 @@ export class ImpuestoListadoComponent implements OnInit {
   impuesto!: ImpuestosViewModel[];
   showModal: boolean = false;
   editModal: boolean = false;
+  showDeleteConfirmation: boolean = false;
+  MensajeViewModel!: MensajeViewModel[];
   deleteModal: boolean = false;
   impuestoSeleccionado: ImpuestosViewModel = { 
     impue_Id: 0, 
@@ -68,31 +71,139 @@ export class ImpuestoListadoComponent implements OnInit {
     this.getImpuesto();
   }
 
-  openModal(): void {
-    this.showModal = true;
+  
+  impuestoeleccionadoId: string = '';
+
+  eliminarcategoria(municipioId: number): void {
+      console.log('ID:', municipioId);
+      // Almacena el ID del municipio seleccionado
+      this.impuestoeleccionadoId = municipioId.toString();
+      // Muestra el modal de confirmación
+      this.showDeleteConfirmation = true;
   }
 
-  closeModal(): void {
-    this.showModal = false;
+  confirmarEliminacion(): void {
+    if (this.impuestoeleccionadoId) {
+        this.service.eliminarImpuesto(parseInt(this.impuestoeleccionadoId)).subscribe(
+            (response) => {
+                console.log('impuesto eliminado exitosamente', response);
+  
+                // Añadimos un mensaje de éxito aquí para verificar si se ejecuta
+                // this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Municipio eliminado correctamente' });
+  
+                this.getImpuesto();
+                this.impuestoeleccionadoId = '';
+            },
+            (error) => {
+              // this.messageService.add({ severity: 'Error', summary: 'Danger Message', detail: 'El Municipio no se eliminado correctamente' });
+                this.impuestoeleccionadoId = '';
+            }
+        );
+    } else {
+        console.error('ID del impuesto seleccionado está vacío');
+    }
+    this.showDeleteConfirmation = false;
+  }
+  cancelarEliminacion(): void {
+    this.showDeleteConfirmation = false;
+    this.impuestoeleccionadoId = '';
+  }
+    //Funcionan como regex
+    ValidarNumeros(event: KeyboardEvent) {
+      if (!/[0-9]/.test(event.key) && event.key !== 'Backspace' && event.key !== 'Tab') {
+          event.preventDefault();
+      }
+  }
+  validarTexto(event: KeyboardEvent) {
+
+      if (!/^[a-zA-Z\s]+$/.test(event.key) && event.key !== 'Backspace' && event.key !== 'Tab' && event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
+          event.preventDefault();
+      }
   }
 
-  editDepartamento(depto: ImpuestosViewModel): void {
-    this.impuestoSeleccionado = depto;
-    this.editModal = true;
+
+  openModal(tipo: string, categoria?: ImpuestosViewModel): void {
+    if (tipo === 'nuevo') {
+        // Limpiar el objeto impuestoSeleccionado antes de abrir el modal de inserción
+        this.impuestoSeleccionado = {
+            impue_Id: 0,
+            impue_Descripcion: 0,
+            impue_UsuarioCreacion: 0,
+            impue_FechaCreacion: new Date(),
+            impue_UsuarioModificacion: null,
+            impue_FechaModificacion: null,
+            usuarioCreacion: '',
+            usuarioModificacion: ''
+        };
+        this.showModal = true;
+    } else if (tipo === 'editar') {
+        this.impuestoSeleccionado = categoria!;
+        this.editModal = true;
+    } else if (tipo === 'eliminar') {
+        this.deleteModal = true;
+    }
   }
 
-  guardarCambios(): void {
-    this.editModal = false;
+
+  closeModal(tipo: string): void {
+    if (tipo === 'nuevo') {
+      this.showModal = false;
+    } else if (tipo === 'editar') {
+      this.editModal = false;
+    } else if (tipo === 'eliminar') {
+      this.deleteModal = false;
+    }
   }
 
-  deleteDepartamento(depto: ImpuestosViewModel): void {
-    this.impuestoSeleccionado = depto;
-    this.deleteModal = true;
+  
+  guardarNuevocategoria(): void {
+    this.service.insertarImpuesto(this.impuestoSeleccionado).subscribe(
+       (response: any) => {
+        console.log('impuesto insertado correctamente:', response);
+  
+        // this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Municipio insertado correctamente' });
+  
+         this.getImpuesto();
+        this.closeModal('nuevo');
+      },
+      error => {
+        console.error('Error al insertar el impuesto:', error);
+        // this.showToast('error', 'Error Message', 'Error al insertar el municipio');
+  
+       }
+     );
+   }
+   guardarCambios(): void {
+    this.service.actualizarImpuesto(this.impuestoSeleccionado).subscribe(
+      (response) => {
+        console.log('impuesto actualizado correctamente:', response);
+        // this.showToast('success', 'Success Message', 'Municipio actualizado correctamente');
+        this.getImpuesto();
+        this.closeModal('editar');
+      },
+      (error) => {
+        console.error('Error al actualizar el impuesto:', error);
+        // this.showToast('error', 'Error Message', 'Error al actualizar el municipio');
+      }
+    );
   }
+  // editDepartamento(depto: ImpuestosViewModel): void {
+  //   this.impuestoSeleccionado = depto;
+  //   this.editModal = true;
+  // }
 
-  eliminarDepartamento(): void {
-    this.deleteModal = false;
-  }
+  // guardarCambios(): void {
+  //   this.editModal = false;
+  // }
+
+  // deleteDepartamento(depto: ImpuestosViewModel): void {
+  //   this.impuestoSeleccionado = depto;
+  //   this.deleteModal = true;
+  // }
+
+  // eliminarDepartamento(): void {
+  //   this.deleteModal = false;
+  // }
 }
 
 @NgModule({
