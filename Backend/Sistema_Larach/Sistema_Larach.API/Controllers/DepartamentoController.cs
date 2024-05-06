@@ -68,9 +68,8 @@ namespace Sistema_Larach.API.Controllers
             {
                 Depar_Id = item.Depar_Id,
                 Depar_Descripcion = item.Depar_Descripcion,
-         
-                Depar_FechaModificacion = DateTime.Now,
-                Depar_Estado = true
+             
+              
                
             };
             var list = _generalServices.ActualizarDepto(modelo);
