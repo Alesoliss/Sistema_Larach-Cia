@@ -197,8 +197,8 @@ namespace Sistema_Larach.DataAccess.Repository
             using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
             {
                 var parametro = new DynamicParameters();
-                parametro.Add("Usua_Codigo", codigo);
-                parametro.Add("Usua_Id", id);
+                parametro.Add("@Usu_Codigo", codigo);
+                parametro.Add("@Usuar_Id", id);
 
 
                 var result = db.Execute(ScriptDataBase.Usuarios_Codigo,
@@ -219,7 +219,7 @@ namespace Sistema_Larach.DataAccess.Repository
             List<tbUsuarios> result = new List<tbUsuarios>();
             using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
             {
-                var parameters = new { Usua_CodigoVerificacion = codigo };
+                var parameters = new { codigo = codigo };
                 result = db.Query<tbUsuarios>(ScriptDataBase.Usuario_MostrarCodigo, parameters, commandType: CommandType.StoredProcedure).ToList();
                 return result;
             }
@@ -232,7 +232,7 @@ namespace Sistema_Larach.DataAccess.Repository
             List<tbUsuarios> result = new List<tbUsuarios>();
             using (var db = new SqlConnection(Sistema_LarachContext.ConnectionString))
             {
-                var parameters = new { Usua_Usuario = usuario };
+                var parameters = new { Usuar_Usuario = usuario };
                 result = db.Query<tbUsuarios>(ScriptDataBase.Usuarios_ValidarReestablecer, parameters, commandType: CommandType.StoredProcedure).ToList();
                 return result;
             }

@@ -75,7 +75,7 @@ namespace Sistema_Larach.DataAccess.Repository
                 var parametro = new DynamicParameters();
                 parametro.Add("@Depar_Id", item.Depar_Id);
                 parametro.Add("@Depar_Descripcion", item.Depar_Descripcion);
-                parametro.Add("@Depa_UsuarioModificacion", 1);
+                //parametro.Add("@Depar_UsuarioModificacion", 1);
                 parametro.Add("@Depa_FechaModificacion", DateTime.Now);
                 parametro.Add("@Depar_Estado", true);
                 var result = db.Execute(sql, parametro, commandType: CommandType.StoredProcedure);

@@ -48,21 +48,25 @@
         <div class="title">
           <img src="../../../../assets/demo/images/access/logoletra.png" style="width: 200px;">
         </div>
-        
+        <form>
         <div class="login-card">
           <h2>Larach y Cia</h2>
-          <div class="form-group">
+          <div class="input-box">
             <input type="text" name="usuario" placeholder="Usuario" required class="form-control" [(ngModel)]="usuario">
           </div>
-          <div class="form-group">
+          <div class="input-box">
             <input type="password" name="password" placeholder="Contraseña" required class="form-control" [(ngModel)]="contrase">
           </div>
-          <button (click)="onLogin()" class="login-button">Iniciar Sesión</button>
-          <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+          <div class="button input-box">
+            <!-- <input type="submit" value="Submit"> -->
+            <button (click)="onLogin()" class="w-full p-3 text-xl" class="botonEnviar" >Iniciar Sesión</button>
+          </div>
+    
+          <div *ngIf="errorMessage" style="color: red;" class="error-message">{{ errorMessage }}</div>
           <div class="forgot-password">Olvidé mi contraseña</div>
         </div>
         
-        
+      </form>
     
       </div>
       <div class="signup-form">

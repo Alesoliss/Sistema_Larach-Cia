@@ -202,6 +202,7 @@ showToast(severity: string, summary: string, detail: string): void {
   }
   
 
+
   // editDepartamento(depto: CargosViewModel): void {
   //   this.cargoSeleccionado = depto;
   //   this.editModal = true;
