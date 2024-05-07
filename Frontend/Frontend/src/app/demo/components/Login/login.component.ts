@@ -19,13 +19,18 @@ import { LoginVieweMOdel } from '../../api/Models/LoginViewModel';
   
     constructor(private router: Router, private userService: UsuariosServiceService) {}
   
+
+    
     onLogin() {
       this.userService.login(this.usuario, this.contrase).subscribe({
         next: (data) => {
           if (data.length > 0) {
             console.log('Login successful', data);
-            this.router.navigate(['/app/dashboard']);
-            // Redirecciona al usuario o realiza acciones post-login
+            // Almacena el nombre de usuario en el Local Storage
+            localStorage.setItem('usuario', data[0].usuario);
+            
+            this.router.navigate(['/app/dashboard'], { queryParams: { usuario: data[0].usuario } });
+            // Redirecciona al usuario con los parámetros de consulta
           } else {
             // Maneja la respuesta vacía como credenciales incorrectas
             this.errorMessage = 'Usuario o contraseña incorrectos';
@@ -35,10 +40,11 @@ import { LoginVieweMOdel } from '../../api/Models/LoginViewModel';
         error: (error) => {
           this.errorMessage = 'Error en la conexión con el servidor';
           console.error('Login failed:', error);
-        }
-       
-      });
-    }
+        }
+      });
+    }
+    
+    
   }
   
 
